@@ -1,0 +1,250 @@
+/* .vitepress/theme/style.css */
+/* Calm Tone Theme for VitePress — soft black & white / grayscale */
+
+/* --- 1. Fonts --- */
+:root {
+  --vp-font-family-base: "Inter", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --vp-font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+/* --- 2. Grayscale Palette --- */
+:root {
+  /* Core neutrals */
+  --bw-ink:    #1a1a1a; /* deepest — strong text / dark accents */
+  --bw-slate:  #333333; /* primary brand (near-black) */
+  --bw-gray:   #4a4a4a; /* hover / secondary accent */
+  --bw-mid:    #8a8a8a; /* muted accent */
+
+  /* Soft neutral backdrop */
+  --bw-paper:  #fafafa; /* main background — soft off-white */
+  --bw-haze:   #f0f0f0; /* alternate background */
+  --bw-fog:    #f5f5f5; /* soft section background */
+  --bw-white:  #ffffff; /* elevated surfaces */
+
+  /* Gentle contrast accent for code/inline */
+  --bw-code:   #383838;
+
+  /* --- 3. Map to VitePress theme variables --- */
+  --vp-c-brand-1: var(--bw-slate);  /* links, accents */
+  --vp-c-brand-2: var(--bw-gray);   /* hover states */
+  --vp-c-brand-3: var(--bw-mid);
+
+  --vp-c-text-1: #1f1f1f; /* primary text — soft charcoal (not pure black) */
+  --vp-c-text-2: #444444; /* secondary */
+  --vp-c-text-3: #6a6a6a; /* tertiary */
+  --vp-c-text-4: #9a9a9a; /* disabled */
+
+  --vp-c-bg: var(--bw-paper);
+  --vp-c-bg-alt: var(--bw-haze);
+  --vp-c-bg-elv: var(--bw-white);
+  --vp-c-bg-soft: var(--bw-fog);
+
+  --vp-c-divider: #e2e2e2;
+  --vp-c-border: #e2e2e2;
+
+  --vp-code-block-bg: #f2f2f2;
+}
+
+/* --- 4. Typography --- */
+body {
+  font-family: var(--vp-font-family-base);
+  font-weight: 400;
+  line-height: 1.65; /* airier line spacing = calmer reading */
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
+  background-color: var(--vp-c-bg);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--vp-font-family-base);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--vp-c-text-1);
+}
+
+h1 { font-size: 2.6em; }
+h2 { font-size: 2.0em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+
+/* --- Links --- */
+a {
+  color: var(--vp-c-brand-1);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--vp-c-brand-2);
+  text-decoration: underline;
+}
+
+/* --- Buttons (soft, rounded, gentle) --- */
+.VPLink.VPButton.medium,
+.VPLink.VPButton.big,
+.VPButton,
+.vp-button,
+button,
+.btn,
+[role="button"] {
+  background-color: var(--vp-c-brand-1) !important;
+  color: var(--bw-white) !important;
+  border-radius: 8px; /* softer corners feel calmer */
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none !important;
+  transition: background-color 0.25s ease;
+}
+
+.VPLink.VPButton.medium:hover,
+.VPLink.VPButton.big:hover,
+.VPButton:hover,
+.vp-button:hover,
+button:hover,
+.btn:hover,
+[role="button"]:hover {
+  background-color: var(--vp-c-brand-2) !important;
+  border-color: var(--vp-c-brand-2) !important;
+  color: var(--bw-white) !important;
+}
+
+/* Secondary / alt buttons */
+.VPButton.alt,
+.vp-button.alt,
+.btn.alt {
+  background-color: var(--bw-white) !important;
+  color: var(--vp-c-brand-1) !important;
+  border: 2px solid var(--vp-c-brand-1) !important;
+}
+.VPButton.alt:hover,
+.vp-button.alt:hover,
+.btn.alt:hover {
+  background-color: var(--vp-c-brand-1) !important;
+  color: var(--bw-white) !important;
+}
+
+/* Hero & feature action buttons */
+.VPHero .actions .VPButton,
+.VPFeature .link {
+  background-color: var(--vp-c-brand-1) !important;
+  color: var(--bw-white) !important;
+  border: 1px solid var(--vp-c-brand-1) !important;
+}
+.VPHero .actions .VPButton:hover,
+.VPFeature .link:hover {
+  background-color: var(--vp-c-brand-2) !important;
+  color: var(--bw-white) !important;
+  border-color: var(--vp-c-brand-2) !important;
+}
+
+/* --- Navigation --- */
+.VPNav, .VPNavBar,
+.VPNavBarTitle, .VPNavBarMenu, .VPLocalNav {
+  background-color: var(--vp-c-bg) !important;
+  color: var(--vp-c-text-1) !important;
+}
+.VPNavBarMenuLink.VPLink {
+  font-weight: 500;
+}
+
+/* --- Sidebar --- */
+.VPSidebar {
+  background-color: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1) !important;
+}
+.VPSidebarItem .text {
+  font-weight: 400;
+  color: var(--vp-c-text-1) !important;
+}
+.VPSidebarItem.is-active .text {
+  font-weight: 600;
+  color: var(--vp-c-brand-1) !important;
+}
+
+/* --- Hero + feature cards (soft, elevated, gentle shadow) --- */
+.VPHero, .VPFeatures, .VPFeature {
+  background-color: var(--vp-c-bg) !important;
+  color: var(--vp-c-text-1) !important;
+}
+.VPHero .name,
+.VPHero .text,
+.VPHero .tagline {
+  color: var(--vp-c-text-1) !important;
+  -webkit-text-fill-color: var(--vp-c-text-1);
+  background: none !important;
+}
+.VPFeature {
+  background-color: var(--vp-c-bg-elv) !important;
+  border: 1px solid var(--vp-c-border) !important;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05); /* soft, diffuse */
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.VPFeature:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+  transform: translateY(-2px);
+}
+.VPFeature .title,
+.VPFeature .details {
+  color: var(--vp-c-text-1) !important;
+}
+
+/* --- Blockquotes --- */
+blockquote {
+  border-left: 4px solid var(--bw-gray);
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-bg-soft);
+  padding: 0.5em 1em;
+  border-radius: 0 8px 8px 0;
+}
+
+/* --- Code --- */
+:not(pre) > code {
+  background-color: var(--vp-code-block-bg);
+  color: var(--bw-code); /* dark gray instead of harsh red */
+  border-radius: 4px;
+  padding: 0.2em 0.4em;
+  border: 1px solid #e4e4e4;
+}
+pre {
+  background-color: var(--vp-code-block-bg) !important;
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+}
+pre code { color: var(--vp-c-text-1) !important; }
+
+/* --- Tables --- */
+th {
+  background-color: var(--vp-c-bg-alt);
+  color: var(--vp-c-text-1);
+}
+td { color: var(--vp-c-text-1); }
+
+/* --- Footer --- */
+.VPFooter {
+  background-color: var(--vp-c-bg-alt) !important;
+  color: var(--vp-c-text-2) !important;
+}
+
+/* --- Selection / search highlight (soft gray) --- */
+::selection,
+::-moz-selection,
+mark,
+.search-highlight {
+  background-color: #e6e6e6 !important;
+  color: var(--vp-c-text-1) !important;
+}
+
+/* --- Spacing: more breathing room = calmer --- */
+.VPDoc {
+  padding-top: 32px;
+  padding-bottom: 32px;
+}
+.VPContent {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+body, p, ul, ol, li, table, blockquote {
+  text-align: left;
+}
+
