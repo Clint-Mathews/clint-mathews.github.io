@@ -117,6 +117,7 @@ Mar Athanasius College of Engineering · Kothamangalam, Kerala, India
 I'm always open to conversations about backend engineering and distributed systems.
 
 <div class="connect-links">
+<p><a href="/CLINT-MATHEWS.pdf" download>Download Resume (PDF)</a></p>
 <p><a href="mailto:mathewsclint28@gmail.com">mathewsclint28@gmail.com</a></p>
 <p><a href="https://github.com/Clint-Mathews">GitHub</a> · <a href="https://www.linkedin.com/in/clint-mathews/">LinkedIn</a></p>
 </div>

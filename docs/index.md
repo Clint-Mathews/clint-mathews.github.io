@@ -11,6 +11,9 @@ hero:
     - theme: alt
       text: Read My Engineering Blog
       link: /learning
+    - theme: alt
+      text: Download Resume
+      link: /CLINT-MATHEWS.pdf
 features:
   - title: 7+ Years Backend Engineering
     details: Enterprise-scale distributed systems, microservice architectures, and real-time data pipelines powering platforms that serve millions.
