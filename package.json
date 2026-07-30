@@ -1,0 +1,26 @@
+{
+  "name": "clint-mathews.github.io",
+  "version": "1.0.0",
+  "description": "Resume Website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Clint-Mathews/clint-mathews.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Clint-Mathews/clint-mathews.github.io/issues"
+  },
+  "homepage": "https://github.com/Clint-Mathews/clint-mathews.github.io#readme",
+  "devDependencies": {
+    "vitepress": "^1.6.4"
+  }
+}
