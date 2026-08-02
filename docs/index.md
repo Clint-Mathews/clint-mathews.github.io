@@ -8,6 +8,9 @@ hero:
     - theme: brand
       text: View My Work
       link: /projects
+    - theme: brand
+      text: System Architecture
+      link: /architecture
     - theme: alt
       text: Read My Engineering Blog
       link: /learning
@@ -16,9 +19,9 @@ hero:
       link: /CLINT-MATHEWS.pdf
 features:
   - title: 7+ Years Backend Engineering
-    details: Enterprise-scale distributed systems, microservice architectures, and real-time data pipelines powering platforms that serve millions.
+    details: Architecting distributed systems and real-time pipelines. Built a custom distributed simulation engine that syncs info and simulates thousands of concurrent EV chargers.
   - title: Reliability at Scale
-    details: Platforms processing millions of messages daily with 99.95% uptime, from monolith migrations to high-throughput Kafka consumers.
+    details: Platforms processing millions of messages daily. Designed an OCPP WebSocket gateway managing 20k+ persistent charger connections with 99.95% uptime.
   - title: Observability & Cost Optimization
     details: Revamping monitoring and logging infrastructure to cut costs by 60% while accelerating root cause analysis across distributed services.
 ---

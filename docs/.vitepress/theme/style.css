@@ -628,3 +628,39 @@ blockquote {
 .awards-list strong {
   color: var(--vp-c-text-1);
 }
+
+/* --- RFC Cards (Architecture Page) --- */
+.rfc-card {
+  background-color: var(--vp-c-bg-elv);
+  border: 1px solid var(--vp-c-border);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+.rfc-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--vp-c-border);
+  padding-bottom: 12px;
+}
+.rfc-header h3 {
+  margin: 0;
+  font-size: 1.4em;
+}
+.rfc-body {
+  color: var(--vp-c-text-2);
+}
+.rfc-body strong {
+  color: var(--vp-c-text-1);
+}
+.rfc-body ul {
+  padding-left: 20px;
+  margin-bottom: 16px;
+}
+.rfc-body li {
+  margin-bottom: 6px;
+}
