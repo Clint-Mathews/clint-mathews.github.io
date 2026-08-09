@@ -159,7 +159,7 @@ Analyzing massive volumes of Jira tickets for performance metrics was slow and m
 
 **What I Built**
 
-I built a full-stack AI analytics platform (React, Flask, GPT-4) with enterprise-grade features including Azure AD authentication, automated PDF reporting, and a real-time AI chat for interactive performance analysis.
+I built a full-stack AI analytics platform (React, Flask, GPT-4) with enterprise-grade features including Azure AD authentication, automated PDF reporting, and a real-time AI chat for interactive performance analysis. Implemented intelligent caching and parallel processing for LLM workloads, cutting analysis response times by 70%.
 
 **Results**
 
@@ -232,6 +232,83 @@ Built a real-time logistics platform (.NET, Angular) to monitor 1,000+ active sh
 <div class="metrics-row">
   <span class="metric-badge">1,000+ active shipments</span>
   <span class="metric-badge">Real-time monitoring</span>
+</div>
+
+</div>
+</div>
+
+---
+
+## Personal Projects
+
+<div class="project-card">
+
+### File-To-BinaryVideo-BackTo-File <span class="project-tag">Golang</span>
+
+<div class="project-body">
+
+**What I Built**
+
+Engineered an encoding mechanism that converts any file into a binary video format, enabling lossless decoding back to the original source file. An exploration of binary data representation, video encoding pipelines, and creative approaches to data storage.
+
+[View on GitHub →](https://github.com/Clint-Mathews)
+
+</div>
+</div>
+
+<div class="project-card">
+
+### PUB/SUB Implementation using Redis <span class="project-tag">Golang</span>
+
+<div class="project-body">
+
+**What I Built**
+
+A technical write-up and implementation of a highly available publish/subscribe messaging system using Redis. Covers connection management, message serialization, and reliable delivery patterns.
+
+[Read the Write-up →](https://github.com/Clint-Mathews)
+
+</div>
+</div>
+
+<div class="project-card" id="photonicops">
+
+### PhotonicOps — Offline Telemetry Ingestion Engine <span class="project-tag">Golang · gRPC · HIPAA</span>
+
+<div class="project-body">
+
+**The Problem**
+
+Silicon photonic biosensors in HIPAA-sensitive clinical environments generate continuous, high-frequency optical resonance telemetry that must be ingested reliably with zero cloud dependencies — fully air-gapped, no OpenAI/AWS/GCP calls anywhere.
+
+**What I Built** *(Phase 0 + Phase 1 — implemented)*
+
+Designed and built a high-throughput, offline telemetry ingestion engine in Go:
+
+- **High-throughput gRPC service** (client-streaming RPCs) sustaining 10 kHz data ingestion, with a Protobuf-defined sensor telemetry contract and a synthetic load-generating client (mock 10 kHz sensor simulator with injected Gaussian noise + thermal drift modeling).
+- **Zero-allocation / low-GC hot path** using `sync.Pool` for buffer reuse; concurrent worker-pool pattern (fixed goroutine pool + buffered channel) for backpressure-aware load handling; lock-free / mutex-protected circular (ring) buffer for fixed-memory, leak-free long-running ingestion.
+- **Go workspaces** (`go.work`) for multi-module monorepo management.
+- **GitHub Actions CI pipeline:** build, `go vet`, race-detector test runs (`go test -race`), coverage reporting, lint gating, and cross-compilation to static Linux binaries as artifacts.
+- **Fully offline Docker Compose infra stack** (Postgres, Prometheus, Grafana, Langfuse, Ollama) pinned to `linux/arm64` for Apple Silicon, with an environment-gate script validating service health before development proceeds.
+- **Profiling instrumentation** via `net/http/pprof` to verify GC-pause / performance SLAs.
+- **ADRs** documenting key tradeoffs: mTLS transport security, Unix-domain-socket IPC design, fail-safe LLM decision fallback states.
+
+**Architected, not yet built** *(later phases — designed via ADR)*
+
+- A local-only agentic hardware-triage system on Ollama (self-hosted LLM, zero cloud API calls) with Langfuse tracing.
+- Safety-first agent pattern: triage agent must degrade to `REQUIRES_MANUAL_REVIEW` on timeout or low-confidence response — human-in-the-loop safety constraint for agentic actions in a clinical/HIPAA context.
+
+**AI-Assisted Engineering Practice**
+
+Used Claude Code as a primary agentic dev tool — configured project-level constraint files to enforce architectural rules (ARM64-only Docker configs, zero-allocation Go patterns, zero-cloud-API policy) automatically across every session. Designed custom directory-scoped AI personas per service, and used ADRs as durable machine-readable context for AI continuity.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">10,000 samples/sec sustained</span>
+  <span class="metric-badge">Zero-allocation hot path</span>
+  <span class="metric-badge">Race-detector-clean</span>
+  <span class="metric-badge">Fully air-gapped</span>
 </div>
 
 </div>

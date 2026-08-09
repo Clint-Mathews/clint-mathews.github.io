@@ -24,6 +24,8 @@ features:
     details: Platforms processing millions of messages daily. Designed an OCPP WebSocket gateway managing 20k+ persistent charger connections with 99.95% uptime.
   - title: Observability & Cost Optimization
     details: Revamping monitoring and logging infrastructure to cut costs by 60% while accelerating root cause analysis across distributed services.
+  - title: AI-Assisted Engineering
+    details: Adopting an AI-first approach to development — using Claude Code, Google Antigravity, and GitHub Copilot for Enterprise for agentic workflows, multi-model evaluation via OpenRouter, and self-hosted LLM inference with Ollama.
 ---
 
 <div class="bio-section">

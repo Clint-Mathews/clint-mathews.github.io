@@ -21,12 +21,13 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
 <p><strong>Ford Motor Company</strong> · Remote, India</p>
 <span class="experience-date">Aug 2022 – Present</span>
 <ul>
-<li>Orchestrated end-to-end delivery of scalable backend services for the monolith-to-microservices transition</li>
-<li>Collaborated with hardware and firmware teams to resolve complex cloud-to-charger integration issues</li>
-<li>Partnered with CX and Product teams to translate customer requirements into technical features</li>
-<li>Mentored junior engineers through rigorous code reviews, improving code quality and reducing ramp-up time</li>
-<li>Owned L3 production support for critical services, maintaining 99.95% uptime</li>
-<li>Authored 3 foundational RFCs to define technical strategy for OCPP 2.x adoption</li>
+  <li>Orchestrated end-to-end delivery of scalable backend services for the monolith-to-microservices transition, coordinating design, development, and deployment</li>
+  <li>Served as the lead technical translator between Product and engineering — converting feature requests into scoped technical requirements — and between engineering and the hardware team, jointly planning and implementing integration work end-to-end</li>
+  <li>Collaborated with hardware and firmware teams to resolve complex cloud-to-charger integration issues, ensuring seamless OCPP compliance for new charger models</li>
+  <li>Partnered with CX and Product teams to translate customer requirements into technical features, directly improving UX for fleet managers</li>
+  <li>Mentored junior engineers through rigorous code reviews, improving code quality and reducing ramp-up time</li>
+  <li>Owned L3 production support for critical services, maintaining 99.95% uptime and driving root cause analysis for incident resolution</li>
+  <li>Authored 3 foundational RFCs to define technical strategy for OCPP 2.x adoption and core platform services</li>
 </ul>
 </div>
 
@@ -78,7 +79,35 @@ React · Angular · Next.js · HTML5/CSS · jQuery
 <div class="skill-category">
 
 #### DevOps & Tools
-Datadog · Bash · Git · CI/CD · Jira · Confluence
+Datadog · Pandas · NumPy · Jupyter Notebooks · Bash · Git · CI/CD · Jira · Confluence
+
+</div>
+
+<div class="skill-category">
+
+#### Architecture & Patterns
+Microservices · Event-driven architecture · Circuit breakers · Bulkhead isolation · Backpressure · Async job queues · RFC authorship · OCPP protocol
+
+</div>
+
+<div class="skill-category">
+
+#### AI/ML (Emerging)
+GPT-4 integration · AI platform engineering & MLOps · Intelligent caching · Parallel processing for LLM workloads
+
+</div>
+
+<div class="skill-category">
+
+#### Go Systems Programming
+gRPC (client-streaming) · Protobuf schema design · Zero-allocation / low-GC hot-path design · Concurrent worker-pool pattern · Lock-free ring buffers · pprof profiling
+
+</div>
+
+<div class="skill-category">
+
+#### AI-Assisted Dev Workflow
+Claude Code · Google Antigravity · GitHub Copilot for Enterprise · Cursor · OpenRouter · Ollama (self-hosted LLM) · Langfuse (LLM observability)
 
 </div>
 
