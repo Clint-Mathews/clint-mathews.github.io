@@ -10,6 +10,7 @@ export default defineConfig({
      { text: "Home", link: "/" },
      { text: "Projects", link: "/projects" },
      { text: "Architecture", link: "/architecture" },
+     { text: "Portfolio", link: "/portfolio-resilient-charging-consumer" },
      { text: "Learning", link: "/learning" },
      { text: "About", link: "/about" },
    ],

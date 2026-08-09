@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1360" width="1100" height="1360" role="img" aria-labelledby="ttl dsc" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+<title id="ttl">Resilient event-driven consumer architecture</title>
+<desc id="dsc">A Kafka topic with 10 partitions feeds a consumer group of 6 pods, which enqueue into 20 Redis-backed queues (10 partitions by 2 regions). Partition-isolated worker pools guarded by 20 circuit breakers call the regional downstream service. Four defence layers are highlighted: bounded intake, durable offload, backpressure via partition pause, and circuit breaking.</desc>
+<style>
+  svg{--ink:#1e293b;--muted:#64748b;--line:#cbd5e1;--line-strong:#94a3b8;--surface:#ffffff;--panel:#f8fafc;--chip:#f1f5f9;--accent:#b45309;--accent-line:#d97706;--accent-bg:#fef3c7;}
+  @media (prefers-color-scheme: dark){svg{--ink:#e2e8f0;--muted:#94a3b8;--line:#334155;--line-strong:#475569;--surface:#0f172a;--panel:#131c2e;--chip:#1e293b;--accent:#fbbf24;--accent-line:#d97706;--accent-bg:#3b2f14;}}
+  .panel{fill:var(--panel);stroke:var(--line);stroke-width:1.25;}
+  .box{fill:var(--surface);stroke:var(--line-strong);stroke-width:1.25;}
+  .chip{fill:var(--chip);stroke:var(--line);stroke-width:1;}
+  .acc{fill:var(--accent-bg);stroke:var(--accent-line);stroke-width:1.25;}
+  .h{fill:var(--ink);font-size:15px;font-weight:650;}
+  .sub{fill:var(--muted);font-size:11.5px;}
+  .lbl{fill:var(--ink);font-size:12.5px;font-weight:600;}
+  .sm{fill:var(--ink);font-size:11px;}
+  .mono{fill:var(--muted);font-size:10.5px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;}
+  .note{fill:var(--muted);font-size:11.5px;}
+  .accT{fill:var(--accent);font-size:11.5px;font-weight:650;}
+  .edge{stroke:var(--line-strong);stroke-width:1.5;fill:none;}
+  .edgeA{stroke:var(--accent-line);stroke-width:1.75;fill:none;stroke-dasharray:6 4;}
+</style>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--line-strong)"/></marker>
+  <marker id="aA" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--accent-line)"/></marker>
+</defs>
+<rect x="0" y="0" width="1100" height="1360" fill="var(--surface)"/>
+
+<text x="110" y="34" class="h">Kafka · events topic</text>
+<text x="272" y="34" class="sub">10 partitions, keyed by device ID</text>
+<rect x="110" y="46" width="880" height="72" rx="8" class="panel"/>
+<g class="sm" text-anchor="middle">
+  <rect x="110" y="66" width="79" height="34" rx="5" class="box"/><text x="149.5" y="88">P1</text>
+  <rect x="199" y="66" width="79" height="34" rx="5" class="box"/><text x="238.5" y="88">P2</text>
+  <rect x="288" y="66" width="79" height="34" rx="5" class="box"/><text x="327.5" y="88">P3</text>
+  <rect x="377" y="66" width="79" height="34" rx="5" class="box"/><text x="416.5" y="88">P4</text>
+  <rect x="466" y="66" width="79" height="34" rx="5" class="box"/><text x="505.5" y="88">P5</text>
+  <rect x="555" y="66" width="79" height="34" rx="5" class="box"/><text x="594.5" y="88">P6</text>
+  <rect x="644" y="66" width="79" height="34" rx="5" class="box"/><text x="683.5" y="88">P7</text>
+  <rect x="733" y="66" width="79" height="34" rx="5" class="box"/><text x="772.5" y="88">P8</text>
+  <rect x="822" y="66" width="79" height="34" rx="5" class="box"/><text x="861.5" y="88">P9</text>
+  <rect x="911" y="66" width="79" height="34" rx="5" class="box"/><text x="950.5" y="88">P10</text>
+</g>
+<path d="M550,118 L550,164" class="edge" marker-end="url(#a)"/>
+<text x="562" y="136" class="sub">consumer group · 6 pods · manual offset commit</text>
+
+<rect x="110" y="170" width="880" height="182" rx="8" class="panel"/>
+<text x="126" y="194" class="lbl">Consumer pods</text>
+<text x="252" y="194" class="sub">batch poll 50–100 → sequential enqueue</text>
+<g>
+  <rect x="126" y="206" width="272" height="60" rx="6" class="box"/><text x="140" y="230" class="lbl">Pod 1</text><text x="140" y="250" class="mono">P1, P2</text>
+  <rect x="414" y="206" width="272" height="60" rx="6" class="box"/><text x="428" y="230" class="lbl">Pod 2</text><text x="428" y="250" class="mono">P3, P4</text>
+  <rect x="702" y="206" width="272" height="60" rx="6" class="box"/><text x="716" y="230" class="lbl">Pod 3</text><text x="716" y="250" class="mono">P5, P6</text>
+  <rect x="126" y="278" width="272" height="60" rx="6" class="box"/><text x="140" y="302" class="lbl">Pod 4</text><text x="140" y="322" class="mono">P7, P8</text>
+  <rect x="414" y="278" width="272" height="60" rx="6" class="box"/><text x="428" y="302" class="lbl">Pod 5</text><text x="428" y="322" class="mono">P9</text>
+  <rect x="702" y="278" width="272" height="60" rx="6" class="box"/><text x="716" y="302" class="lbl">Pod 6</text><text x="716" y="322" class="mono">P10</text>
+</g>
+<path d="M550,352 L550,398" class="edge" marker-end="url(#a)"/>
+<text x="562" y="370" class="sub">route by region + partition</text>
+
+<rect x="110" y="404" width="880" height="214" rx="8" class="panel"/>
+<text x="126" y="428" class="lbl">Redis queues</text>
+<text x="234" y="428" class="sub">20 queues — 10 partitions × 2 regions · durability boundary</text>
+<g class="mono" text-anchor="middle">
+  <rect x="126" y="440" width="164" height="30" rx="5" class="chip"/><text x="208" y="459">p1-us-queue</text>
+  <rect x="305" y="440" width="164" height="30" rx="5" class="chip"/><text x="387" y="459">p2-us-queue</text>
+  <rect x="484" y="440" width="164" height="30" rx="5" class="chip"/><text x="566" y="459">p3-us-queue</text>
+  <rect x="663" y="440" width="164" height="30" rx="5" class="chip"/><text x="745" y="459">p4-us-queue</text>
+  <rect x="842" y="440" width="164" height="30" rx="5" class="chip"/><text x="924" y="459">p5-us-queue</text>
+  <rect x="126" y="478" width="164" height="30" rx="5" class="chip"/><text x="208" y="497">p1-eu-queue</text>
+  <rect x="305" y="478" width="164" height="30" rx="5" class="chip"/><text x="387" y="497">p2-eu-queue</text>
+  <rect x="484" y="478" width="164" height="30" rx="5" class="chip"/><text x="566" y="497">p3-eu-queue</text>
+  <rect x="663" y="478" width="164" height="30" rx="5" class="chip"/><text x="745" y="497">p4-eu-queue</text>
+  <rect x="842" y="478" width="164" height="30" rx="5" class="chip"/><text x="924" y="497">p5-eu-queue</text>
+  <rect x="126" y="516" width="164" height="30" rx="5" class="chip"/><text x="208" y="535">p6-us-queue</text>
+  <rect x="305" y="516" width="164" height="30" rx="5" class="chip"/><text x="387" y="535">p7-us-queue</text>
+  <rect x="484" y="516" width="164" height="30" rx="5" class="chip"/><text x="566" y="535">p8-us-queue</text>
+  <rect x="663" y="516" width="164" height="30" rx="5" class="chip"/><text x="745" y="535">p9-us-queue</text>
+  <rect x="842" y="516" width="164" height="30" rx="5" class="chip"/><text x="924" y="535">p10-us-queue</text>
+  <rect x="126" y="554" width="164" height="30" rx="5" class="chip"/><text x="208" y="573">p6-eu-queue</text>
+  <rect x="305" y="554" width="164" height="30" rx="5" class="chip"/><text x="387" y="573">p7-eu-queue</text>
+  <rect x="484" y="554" width="164" height="30" rx="5" class="chip"/><text x="566" y="573">p8-eu-queue</text>
+  <rect x="663" y="554" width="164" height="30" rx="5" class="chip"/><text x="745" y="573">p9-eu-queue</text>
+  <rect x="842" y="554" width="164" height="30" rx="5" class="chip"/><text x="924" y="573">p10-eu-queue</text>
+</g>
+<text x="126" y="605" class="mono">jobId = partition + offset (idempotent)   ·   offsets commit only after successful enqueue</text>
+<path d="M550,618 L550,662" class="edge" marker-end="url(#a)"/>
+<path d="M110,500 L58,500 L58,82 L106,82" class="edgeA" marker-end="url(#aA)"/>
+
+<rect x="110" y="668" width="880" height="306" rx="8" class="panel"/>
+<text x="126" y="692" class="lbl">Partition-isolated worker pools</text>
+<text x="330" y="692" class="sub">140 workers · 10 US + 4 EU per partition</text>
+<g>
+  <rect x="126" y="704" width="272" height="122" rx="6" class="box"/><text x="140" y="726" class="lbl">Pod 1 workers</text><text x="140" y="744" class="mono">P1, P2 queues</text><text x="140" y="764" class="sm">US 10 + 10   ·   EU 4 + 4</text><rect x="140" y="776" width="244" height="34" rx="5" class="acc"/><text x="152" y="798" class="accT">4 circuit breakers</text>
+  <rect x="414" y="704" width="272" height="122" rx="6" class="box"/><text x="428" y="726" class="lbl">Pod 2 workers</text><text x="428" y="744" class="mono">P3, P4 queues</text><text x="428" y="764" class="sm">US 10 + 10   ·   EU 4 + 4</text><rect x="428" y="776" width="244" height="34" rx="5" class="acc"/><text x="440" y="798" class="accT">4 circuit breakers</text>
+  <rect x="702" y="704" width="272" height="122" rx="6" class="box"/><text x="716" y="726" class="lbl">Pod 3 workers</text><text x="716" y="744" class="mono">P5, P6 queues</text><text x="716" y="764" class="sm">US 10 + 10   ·   EU 4 + 4</text><rect x="716" y="776" width="244" height="34" rx="5" class="acc"/><text x="728" y="798" class="accT">4 circuit breakers</text>
+  <rect x="126" y="840" width="272" height="122" rx="6" class="box"/><text x="140" y="862" class="lbl">Pod 4 workers</text><text x="140" y="880" class="mono">P7, P8 queues</text><text x="140" y="900" class="sm">US 10 + 10   ·   EU 4 + 4</text><rect x="140" y="912" width="244" height="34" rx="5" class="acc"/><text x="152" y="934" class="accT">4 circuit breakers</text>
+  <rect x="414" y="840" width="272" height="122" rx="6" class="box"/><text x="428" y="862" class="lbl">Pod 5 workers</text><text x="428" y="880" class="mono">P9 queues</text><text x="428" y="900" class="sm">US 10   ·   EU 4</text><rect x="428" y="912" width="244" height="34" rx="5" class="acc"/><text x="440" y="934" class="accT">2 circuit breakers</text>
+  <rect x="702" y="840" width="272" height="122" rx="6" class="box"/><text x="716" y="862" class="lbl">Pod 6 workers</text><text x="716" y="880" class="mono">P10 queues</text><text x="716" y="900" class="sm">US 10   ·   EU 4</text><rect x="716" y="912" width="244" height="34" rx="5" class="acc"/><text x="728" y="934" class="accT">2 circuit breakers</text>
+</g>
+<path d="M420,974 L300,1012" class="edge" marker-end="url(#a)"/>
+<path d="M680,974 L800,1012" class="edge" marker-end="url(#a)"/>
+
+<rect x="110" y="1018" width="380" height="66" rx="8" class="box"/>
+<text x="130" y="1046" class="lbl">US charging management</text><text x="130" y="1068" class="sub">regional service · load balanced</text>
+<rect x="610" y="1018" width="380" height="66" rx="8" class="box"/>
+<text x="630" y="1046" class="lbl">EU charging management</text><text x="630" y="1068" class="sub">regional service · load balanced</text>
+
+<g>
+  <circle cx="1032" cy="240" r="13" class="acc"/><text x="1032" y="245" class="accT" text-anchor="middle">1</text><text x="1052" y="237" class="accT">Bounded</text><text x="1052" y="251" class="accT">intake</text>
+  <circle cx="1032" cy="500" r="13" class="acc"/><text x="1032" y="505" class="accT" text-anchor="middle">2</text><text x="1052" y="497" class="accT">Durable</text><text x="1052" y="511" class="accT">offload</text>
+  <circle cx="58" cy="300" r="13" class="acc"/><text x="58" y="305" class="accT" text-anchor="middle">3</text><text x="20" y="336" class="accT">Pause at</text><text x="20" y="350" class="accT">80% depth</text>
+  <circle cx="1032" cy="810" r="13" class="acc"/><text x="1032" y="815" class="accT" text-anchor="middle">4</text><text x="1052" y="807" class="accT">Circuit</text><text x="1052" y="821" class="accT">breaking</text>
+</g>
+
+<line x1="110" y1="1120" x2="990" y2="1120" stroke="var(--line)" stroke-width="1"/>
+<text x="110" y="1146" class="note"><tspan class="accT">Four defence layers.</tspan> Each one fails into the next, so a downstream outage degrades throughput instead of killing pods.</text>
+<text x="110" y="1168" class="note">1 · Batch poll with sequential enqueue bounds in-flight work.   2 · Redis holds the message before the Kafka offset moves.</text>
+<text x="110" y="1190" class="note">3 · Queue depth at 80% pauses the Kafka partition.   4 · One breaker per partition-region stops retry amplification at the source.</text>
+<text x="110" y="1224" class="note">Non-goals: exactly-once semantics (duplicates &lt;0.1%, jobs idempotent) · strict cross-partition ordering · cross-region routing.</text>
+<text x="110" y="1246" class="note">Known cost: pause granularity is per Kafka partition, so a saturated queue in one region also delays the other on that partition.</text>
+<text x="110" y="1280" class="mono">Resilient event-driven consumer · design under review</text>
+</svg>

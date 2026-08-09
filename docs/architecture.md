@@ -54,6 +54,7 @@ We decoupled report generation into an async Celery/Redis job queue. The exact s
 <div class="rfc-header">
 <h3>Building a Resilient Event-Driven Consumer That Stops Cascading Failures</h3>
 <span class="project-tag tag--active">Architecture RFC</span>
+<!-- <span class="project-tag" style="background:#fef3c7;color:#92400e;border-color:#d97706;">Design — under review</span> -->
 </div>
 
 <div class="rfc-body">
@@ -89,6 +90,15 @@ Messages are routed from Kafka into per-partition, per-region queues (backed by 
 ![Capacity & Isolation - Unbounded (Before) vs Boubded + Isolated (After)](./public/bounded-vs-unbounded.jpeg)
 ![Resilient-Architecture](./public/resilient-architectire.jpeg)
 
+<div class="metrics-row" style="margin-top:20px;margin-bottom:16px;">
+  <span class="metric-badge">10,000+ EV chargers</span>
+  <span class="metric-badge">14.4 M messages / day</span>
+  <span class="metric-badge">20 circuit breakers</span>
+  <span class="metric-badge">MTTR: 60 min → &lt; 5 min</span>
+  <span class="metric-badge">0 offset gaps / day</span>
+</div>
+
+<a href="/portfolio-resilient-charging-consumer" style="font-weight:600;color:var(--vp-c-brand-1);">Read the full deep-dive — architecture diagram, four-layer breakdown, tradeoffs →</a>
 
 </div>
 </div>
