@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Clint-Mathews/clint-mathews.github.io#readme",
   "devDependencies": {
+    "puppeteer": "^25.4.0",
     "vitepress": "^1.6.4"
   }
 }

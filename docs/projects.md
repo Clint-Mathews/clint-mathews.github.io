@@ -1,6 +1,216 @@
-# Portfolio
+# Work
 
-## Ford Pro: EV Charging Platform
+Every result below is one I owned or led. Where a design has a full write-up,
+it links out.
+
+*Details are abstracted to focus on architecture and trade-offs rather than
+confidential business logic.*
+
+---
+
+## Built from zero
+
+Systems that did not exist until I built them: architecture, implementation, and the decisions in between. The first two are solo projects; the rest were built inside Ford Pro.
+
+<div class="project-card" id="photonicops">
+
+### PhotonicOps: Offline Agentic Triage Engine <span class="project-tag">Go · Python · gRPC · Local LLM</span>
+
+<div class="project-body">
+
+**The Problem**
+
+Clinical microfluidic biosensors stream optical telemetry (resonance wavelength shift, in picometers) at high frequency, and physical faults like micro-bubbles or channel clogs must be detected and remediated in near real time. In a HIPAA-sensitive clinical setting, sending any of that telemetry to a cloud API is a non-starter, so the entire pipeline, including the LLM making the decisions, had to run air-gapped on local hardware.
+
+**What I Built**
+
+- **Ingestion engine (Go).** A gRPC server ingesting 10,000 samples/sec per sensor, built around a zero-allocation worker pool and a mutex-protected ring buffer, both pre-sized at startup and reused via `sync.Pool` to avoid GC churn on the hot path. Verified with `pprof` to show no significant GC pauses under sustained load from a mock 10 kHz sensor client I also wrote, holding sub-2 ms p99 latency.
+- **DSP pipeline (Python).** Telemetry crosses into Python over a Unix-domain-socket gRPC transport reusing the same Protobuf `FrameBatch` contract, where it is smoothed with a 1D steady-state Kalman filter, de-drifted with rolling-baseline subtraction, and scanned for anomalies via first-derivative thresholding, fully vectorized NumPy/SciPy with no per-sample Python loops, under 10 ms per frame.
+- **Agentic triage (Python + local LLM).** When an anomaly is flagged, a local Llama 3.1 model served by Ollama is prompted through Instructor to emit a strictly-typed Pydantic `RemediationDecision`, never raw text. A safety module is the only authorized caller, and a fail-safe state machine guarantees that low-confidence, schema-invalid, timed-out, or unreachable responses degrade to `REQUIRES_MANUAL_REVIEW` rather than executing anything against hardware, backed by a dedicated test asserting the no-auto-execute invariant.
+- **Observability & audit.** Every triage decision, whether auto-executed, manual-review, or manual-override, is traced through a self-hosted Langfuse instance and persisted to a durable audit log (Postgres + JSONL) alongside the triggering telemetry window, satisfying clinical traceability requirements.
+- **Infrastructure.** The full stack (Prometheus, Grafana, Langfuse/Postgres, Ollama) runs as native `linux/arm64` Docker Compose services on Apple Silicon, gated by a health-check script before development proceeds. CI covers build, `go vet`, race-detector test runs, coverage, lint gating, and cross-compiled static Linux binaries.
+
+**Notable Engineering Decisions (documented as ADRs)**
+
+- Deferred mTLS on the gRPC transport behind an explicit re-entry gate; plaintext is acceptable only on a single local host, never before touching shared network segments or real hardware.
+- Reused the Go↔Python Protobuf contract over Unix domain sockets for the DSP handoff rather than inventing a second wire format.
+- Made a hardware-safety call: the triage agent can *recommend* a remediation but is architecturally incapable of auto-executing on anything but a high-confidence, schema-valid, fully-authorized response.
+
+**Status**
+
+Ingestion, DSP, and agentic triage phases are complete and tested. In progress: a Promptfoo evaluation suite scoring remediation accuracy and fail-safe behavior across clean/noisy/ambiguous/adversarial scenarios, plus a hardening pass on the Go engine (mTLS, Prometheus `/metrics`, load-shedding, per-sensor ring-buffer sharding) before it would be appropriate for real clinical hardware.
+
+**AI-Assisted Engineering Practice**
+
+Used Claude Code as a primary agentic dev tool: project-level constraint files enforce architectural rules (ARM64-only Docker configs, zero-allocation Go patterns, zero-cloud-API policy) automatically across every session, with directory-scoped AI personas per service and ADRs as durable machine-readable context for continuity.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">10,000 samples/sec sustained</span>
+  <span class="metric-badge">Sub-2ms p99 latency</span>
+  <span class="metric-badge">&lt;10ms per DSP frame</span>
+  <span class="metric-badge">Zero-allocation hot path</span>
+  <span class="metric-badge">Fully air-gapped</span>
+</div>
+
+</div>
+</div>
+
+<div class="project-card" id="echogate">
+
+### EchoGate: Split-Plane AI API Gateway <span class="project-tag">Go · Python · FAISS</span>
+
+<div class="project-body">
+
+**The Problem**
+
+Self-hosting an LLM is cheap in principle, but naive reverse proxies undermine the two things that make streaming inference usable. They buffer the response, so tokens arrive in a burst instead of a stream, and they have no visibility into what is actually being asked, so every prompt, including near-duplicates, pays full inference cost.
+
+**My Approach**
+
+I split the system into two planes with different jobs and different failure domains, documented as a set of ADRs. The **Go data plane** sits on the request's critical path where every millisecond is user-visible latency; the **Python control plane** sits off it, where being slower and heavier is fine. Each scales and fails independently.
+
+**What I Built**
+
+- **Non-buffering reverse proxy (Go).** Built on `httputil.ReverseProxy`, forwarding streamed LLM tokens to clients with zero added buffering: immediate flush intervals plus explicit `X-Accel-Buffering` handling to preserve real-time streaming through intermediate proxies.
+- **Header-based gateway auth.** Internal auth tokens are validated and stripped at the proxy edge before requests ever reach the upstream model host, preventing credential leakage upstream.
+- **Async fire-and-forget telemetry.** A bounded tail-buffer response writer recovers token usage from streamed SSE responses without blocking the client, posted off a detached goroutine after stream close.
+- **Local semantic cache (Python).** FAISS over `all-MiniLM-L6-v2` embeddings at a 95% cosine-similarity threshold, designed to cut redundant upstream LLM calls and reduce inference cost and latency, with telemetry ingestion to SQLite and a metrics API behind it.
+- **Local multi-service orchestration.** Docker Compose runs Ollama, the Go proxy, and supporting services together for end-to-end development and manual streaming verification, with CI linting and testing the Go data plane on every change.
+
+**Status**
+
+Shipped honestly, in phases. Complete: the local Ollama host and the Go proxy core: reverse proxy, auth stripping, immediate-flush streaming. In progress: async telemetry (usage capture built, retry/backpressure hardening next), the Python control plane (embeddings, FAISS cache, SQLite ingestion), and a React dashboard for live cache hit-rate and token-velocity metrics.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">Zero added stream buffering</span>
+  <span class="metric-badge">95% similarity cache threshold</span>
+  <span class="metric-badge">5 ADRs authored</span>
+  <span class="metric-badge">Credentials stripped at edge</span>
+</div>
+
+[View on GitHub →](https://github.com/Clint-Mathews/EchoGate)
+
+</div>
+</div>
+
+<div class="project-card">
+
+### Global OCPP Simulator (GOS) <span class="project-tag">Ford Pro</span>
+
+<div class="project-body">
+
+**The Problem**
+
+Validating the OCPP Gateway at scale required a simulation platform that could realistically mimic charger behavior across thousands of devices. Without this, testing system performance and reliability before production rollout was not feasible.
+
+**What I Built**
+
+I drove the development of the Global OCPP Simulator, delivering a platform that simulates over 2,000 chargers to validate system performance and reliability at scale. I authored and drove the adoption of 5 foundational RFCs that defined the core architecture and feature roadmap for the platform.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">2,000+ chargers simulated</span>
+  <span class="metric-badge">5 RFCs authored</span>
+</div>
+
+</div>
+</div>
+
+<div class="project-card">
+
+### ChargeBox Simulator <span class="project-tag">Ford Pro</span>
+
+<div class="project-body">
+
+**The Problem**
+
+The existing charger simulation tool was slow and lacked automated test coverage, making it a bottleneck in the development and QA pipeline for charging session workflows.
+
+**What I Built**
+
+I overhauled the ChargeBox Simulator and implemented a test automation suite, significantly improving the speed and reliability of charger and charging session simulation.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">30% performance boost</span>
+  <span class="metric-badge">40% testing time reduction</span>
+</div>
+
+</div>
+</div>
+
+<div class="project-card">
+
+### File-To-BinaryVideo-BackTo-File <span class="project-tag">Golang</span>
+
+<div class="project-body">
+
+**What I Built**
+
+Engineered an encoding mechanism that converts any file into a binary video format, enabling lossless decoding back to the original source file. An exploration of binary data representation, video encoding pipelines, and creative approaches to data storage.
+
+[View on GitHub →](https://github.com/Clint-Mathews)
+
+</div>
+</div>
+
+<div class="project-card">
+
+### PUB/SUB Implementation using Redis <span class="project-tag">Golang</span>
+
+<div class="project-body">
+
+**What I Built**
+
+A technical write-up and implementation of a highly available publish/subscribe messaging system using Redis. Covers connection management, message serialization, and reliable delivery patterns.
+
+[Read the Write-up →](https://github.com/Clint-Mathews)
+
+</div>
+</div>
+
+---
+
+## Made it survive scale
+
+Platforms that were already live and already struggling. This is also where the cost work sits. The gateway migration decommissioned ~2,150 servers and cut observability spend by 60% on the way through.
+
+<div class="project-card">
+
+### High-Throughput Kafka Fleet Consumer <span class="project-tag">Ford Pro</span>
+
+<div class="project-body">
+
+**The Problem**
+
+The platform required a robust mechanism to ingest and process a massive influx of daily telemetry messages from fleet chargers. Dropped messages or processing delays would directly impact the analytics and operational visibility for fleet managers.
+
+**My Approach**
+
+I focused on fault tolerance and throughput. Before writing code, I evaluated the partition strategy and consumer group configurations to ensure the system could scale horizontally as the fleet size and data volume grew.
+
+**What I Built**
+
+I architected and implemented a high-throughput Kafka consumer from the ground up. I built the service to reliably ingest, process, and route millions of messages daily, ensuring strict adherence to defined data contracts.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">6M+ messages/day</span>
+  <span class="metric-badge">99.9% data integrity</span>
+  <span class="metric-badge">Horizontal scalability</span>
+</div>
+
+As the fleet grew, this consumer's fire-and-forget dispatch became its own failure mode. I authored the RFC redesigning it around backpressure and circuit breaking, and implemented that architecture in full. [read the case study →](/portfolio-resilient-charging-consumer)
+
+</div>
+</div>
 
 <div class="project-card">
 
@@ -35,59 +245,6 @@ I architected and deployed a central communication gateway, successfully migrati
 
 <div class="project-card">
 
-### High-Throughput Kafka Fleet Consumer <span class="project-tag">Ford Pro</span>
-
-<div class="project-body">
-
-**The Problem**
-
-The platform required a robust mechanism to ingest and process a massive influx of daily telemetry messages from fleet chargers. Dropped messages or processing delays would directly impact the analytics and operational visibility for fleet managers.
-
-**My Approach**
-
-I focused on fault tolerance and throughput. Before writing code, I evaluated the partition strategy and consumer group configurations to ensure the system could scale horizontally as the fleet size and data volume grew.
-
-**What I Built**
-
-I architected and implemented a high-throughput Kafka consumer from the ground up. I built the service to reliably ingest, process, and route millions of messages daily, ensuring strict adherence to defined data contracts.
-
-**Results**
-
-<div class="metrics-row">
-  <span class="metric-badge">6M+ messages/day</span>
-  <span class="metric-badge">99.9% data integrity</span>
-  <span class="metric-badge">Horizontal scalability</span>
-</div>
-
-</div>
-</div>
-
-<div class="project-card">
-
-### Global OCPP Simulator (GOS) <span class="project-tag">Ford Pro</span>
-
-<div class="project-body">
-
-**The Problem**
-
-Validating the OCPP Gateway at scale required a simulation platform that could realistically mimic charger behavior across thousands of devices. Without this, testing system performance and reliability before production rollout was not feasible.
-
-**What I Built**
-
-I drove the development of the Global OCPP Simulator, delivering a platform that simulates over 2,000 chargers to validate system performance and reliability at scale. I authored and drove the adoption of 5 foundational RFCs that defined the core architecture and feature roadmap for the platform.
-
-**Results**
-
-<div class="metrics-row">
-  <span class="metric-badge">2,000+ chargers simulated</span>
-  <span class="metric-badge">5 RFCs authored</span>
-</div>
-
-</div>
-</div>
-
-<div class="project-card">
-
 ### Ford Pro Charging (FPC) Platform <span class="project-tag">Ford Pro</span>
 
 <div class="project-body">
@@ -110,42 +267,11 @@ Served as the Subject Matter Expert (SME) for all charger data systems, owning t
 </div>
 </div>
 
-<div class="project-card">
+---
 
-### ChargeBox Simulator <span class="project-tag">Ford Pro</span>
+## Turned data into decisions
 
-<div class="project-body">
-
-**The Problem**
-
-The existing charger simulation tool was slow and lacked automated test coverage, making it a bottleneck in the development and QA pipeline for charging session workflows.
-
-**What I Built**
-
-I overhauled the ChargeBox Simulator and implemented a test automation suite, significantly improving the speed and reliability of charger and charging session simulation.
-
-**Results**
-
-<div class="metrics-row">
-  <span class="metric-badge">30% performance boost</span>
-  <span class="metric-badge">40% testing time reduction</span>
-</div>
-
-</div>
-</div>
-
-<div class="project-card">
-
-### Charging KPI Analytics System <span class="project-tag">Ford Pro</span>
-
-<div class="project-body">
-
-**What I Built**
-
-Developed a KPI analytics system to measure the effectiveness and ROI of Ford's managed charging algorithms, translating complex data into actionable business insights for stakeholders.
-
-</div>
-</div>
+Making large, messy datasets answer a question a human actually asked.
 
 <div class="project-card">
 
@@ -172,9 +298,24 @@ I built a full-stack AI analytics platform (React, Flask, GPT-4) with enterprise
 </div>
 </div>
 
+<div class="project-card">
+
+### Charging KPI Analytics System <span class="project-tag">Ford Pro</span>
+
+<div class="project-body">
+
+**What I Built**
+
+Developed a KPI analytics system to measure the effectiveness and ROI of Ford's managed charging algorithms, translating complex data into actionable business insights for stakeholders.
+
+</div>
+</div>
+
 ---
 
-## Experion Technologies: Enterprise Solutions
+## Earlier enterprise work
+
+Full-stack delivery at Experion Technologies, 2019 to 2022: .NET, Angular, AWS, and ERP integration across four enterprise projects.
 
 <div class="project-card">
 
@@ -239,77 +380,14 @@ Built a real-time logistics platform (.NET, Angular) to monitor 1,000+ active sh
 
 ---
 
-## Personal Projects
-
-<div class="project-card">
-
-### File-To-BinaryVideo-BackTo-File <span class="project-tag">Golang</span>
-
-<div class="project-body">
-
-**What I Built**
-
-Engineered an encoding mechanism that converts any file into a binary video format, enabling lossless decoding back to the original source file. An exploration of binary data representation, video encoding pipelines, and creative approaches to data storage.
-
-[View on GitHub →](https://github.com/Clint-Mathews)
-
-</div>
-</div>
-
-<div class="project-card">
-
-### PUB/SUB Implementation using Redis <span class="project-tag">Golang</span>
-
-<div class="project-body">
-
-**What I Built**
-
-A technical write-up and implementation of a highly available publish/subscribe messaging system using Redis. Covers connection management, message serialization, and reliable delivery patterns.
-
-[Read the Write-up →](https://github.com/Clint-Mathews)
-
-</div>
-</div>
-
-<div class="project-card" id="photonicops">
-
-### PhotonicOps — Offline Telemetry Ingestion Engine <span class="project-tag">Golang · gRPC · HIPAA</span>
-
-<div class="project-body">
-
-**The Problem**
-
-Silicon photonic biosensors in HIPAA-sensitive clinical environments generate continuous, high-frequency optical resonance telemetry that must be ingested reliably with zero cloud dependencies — fully air-gapped, no OpenAI/AWS/GCP calls anywhere.
-
-**What I Built** *(Phase 0 + Phase 1 — implemented)*
-
-Designed and built a high-throughput, offline telemetry ingestion engine in Go:
-
-- **High-throughput gRPC service** (client-streaming RPCs) sustaining 10 kHz data ingestion, with a Protobuf-defined sensor telemetry contract and a synthetic load-generating client (mock 10 kHz sensor simulator with injected Gaussian noise + thermal drift modeling).
-- **Zero-allocation / low-GC hot path** using `sync.Pool` for buffer reuse; concurrent worker-pool pattern (fixed goroutine pool + buffered channel) for backpressure-aware load handling; lock-free / mutex-protected circular (ring) buffer for fixed-memory, leak-free long-running ingestion.
-- **Go workspaces** (`go.work`) for multi-module monorepo management.
-- **GitHub Actions CI pipeline:** build, `go vet`, race-detector test runs (`go test -race`), coverage reporting, lint gating, and cross-compilation to static Linux binaries as artifacts.
-- **Fully offline Docker Compose infra stack** (Postgres, Prometheus, Grafana, Langfuse, Ollama) pinned to `linux/arm64` for Apple Silicon, with an environment-gate script validating service health before development proceeds.
-- **Profiling instrumentation** via `net/http/pprof` to verify GC-pause / performance SLAs.
-- **ADRs** documenting key tradeoffs: mTLS transport security, Unix-domain-socket IPC design, fail-safe LLM decision fallback states.
-
-**Architected, not yet built** *(later phases — designed via ADR)*
-
-- A local-only agentic hardware-triage system on Ollama (self-hosted LLM, zero cloud API calls) with Langfuse tracing.
-- Safety-first agent pattern: triage agent must degrade to `REQUIRES_MANUAL_REVIEW` on timeout or low-confidence response — human-in-the-loop safety constraint for agentic actions in a clinical/HIPAA context.
-
-**AI-Assisted Engineering Practice**
-
-Used Claude Code as a primary agentic dev tool — configured project-level constraint files to enforce architectural rules (ARM64-only Docker configs, zero-allocation Go patterns, zero-cloud-API policy) automatically across every session. Designed custom directory-scoped AI personas per service, and used ADRs as durable machine-readable context for AI continuity.
-
-**Results**
+## At a glance
 
 <div class="metrics-row">
-  <span class="metric-badge">10,000 samples/sec sustained</span>
-  <span class="metric-badge">Zero-allocation hot path</span>
-  <span class="metric-badge">Race-detector-clean</span>
-  <span class="metric-badge">Fully air-gapped</span>
+  <span class="metric-badge">8,200 chargers migrated</span>
+  <span class="metric-badge">6M+ messages / day</span>
+  <span class="metric-badge">99.95% uptime</span>
+  <span class="metric-badge">$9,000/mo infrastructure cut</span>
+  <span class="metric-badge">8+ RFCs adopted</span>
 </div>
 
-</div>
-</div>
+[Download the resume (PDF) →](/CLINT-MATHEWS.pdf) · [Start a conversation →](/#contact)

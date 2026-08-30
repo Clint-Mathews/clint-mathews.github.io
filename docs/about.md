@@ -1,8 +1,30 @@
-# About Me
+# About
 
-## Clint Mathews
+**Clint Mathews**, backend engineer with 7+ years building high-performance
+distributed systems that power enterprise-scale platforms.
 
-**Lead Backend Software Engineer** with 7+ years of experience building high-performance distributed systems that power enterprise-scale platforms.
+<div class="strip" style="margin: 28px 0 8px;">
+  <div class="strip-cell">
+    <span class="strip-label">Full-time</span>
+    <span class="strip-value">Open to the right role</span>
+    <span class="strip-note">2 months' notice</span>
+  </div>
+  <div class="strip-cell">
+    <span class="strip-label">Contract</span>
+    <span class="strip-value">Open to select projects</span>
+    <span class="strip-note">Fixed scope, fixed end date</span>
+  </div>
+  <div class="strip-cell">
+    <span class="strip-label">Timezone</span>
+    <span class="strip-value">IST · UTC+5:30</span>
+    <span class="strip-note">~4h daily overlap with US East</span>
+  </div>
+  <div class="strip-cell">
+    <span class="strip-label">Core stack</span>
+    <span class="strip-value">Go · Python · Kafka</span>
+    <span class="strip-note">NestJS · Flask · AWS · Postgres</span>
+  </div>
+</div>
 
 ---
 
@@ -19,10 +41,10 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
 <div class="experience-card">
 <h3>Technical Lead (Senior Software Engineer)</h3>
 <p><strong>Ford Motor Company</strong> · Remote, India</p>
-<span class="experience-date">Aug 2022 – Present</span>
+<span class="experience-date">Aug 2022 - Present</span>
 <ul>
   <li>Orchestrated end-to-end delivery of scalable backend services for the monolith-to-microservices transition, coordinating design, development, and deployment</li>
-  <li>Served as the lead technical translator between Product and engineering — converting feature requests into scoped technical requirements — and between engineering and the hardware team, jointly planning and implementing integration work end-to-end</li>
+  <li>Served as the lead technical translator between Product and engineering (converting feature requests into scoped technical requirements) and between engineering and the hardware team, jointly planning and implementing integration work end-to-end</li>
   <li>Collaborated with hardware and firmware teams to resolve complex cloud-to-charger integration issues, ensuring seamless OCPP compliance for new charger models</li>
   <li>Partnered with CX and Product teams to translate customer requirements into technical features, directly improving UX for fleet managers</li>
   <li>Mentored junior engineers through rigorous code reviews, improving code quality and reducing ramp-up time</li>
@@ -34,7 +56,7 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
 <div class="experience-card">
 <h3>Software Engineer</h3>
 <p><strong>Experion Technologies</strong> · Hybrid, Kochi, India</p>
-<span class="experience-date">Aug 2019 – Jul 2022</span>
+<span class="experience-date">Aug 2019 - Jul 2022</span>
 <ul>
 <li>Directed technical delivery across 4 enterprise projects, spanning 2 complex frontend and 2 scalable backend systems</li>
 <li>Mentored teams of up to 10 developers while managing the full SDLC from requirement gathering to production deployment</li>
@@ -141,9 +163,10 @@ Mar Athanasius College of Engineering · Kothamangalam, Kerala, India
 
 ---
 
-## Let's Connect
+## Let's connect
 
-I'm always open to conversations about backend engineering and distributed systems.
+Full-time roles, or a contract engagement scoped to one outcome. A first call is
+twenty minutes and you'll leave it with an opinion either way.
 
 <div class="connect-links">
 <p><a href="/CLINT-MATHEWS.pdf" download>Download Resume (PDF)</a></p>
