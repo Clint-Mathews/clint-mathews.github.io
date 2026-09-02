@@ -22,10 +22,10 @@
   --cr-text-3: #788b87;
 
   /* Signal */
-  --cr-accent: #5ee6b5;
+  --cr-accent: #2f9bff;
   --cr-accent-ink: #0b1215;
-  --cr-accent-dim: rgba(94, 230, 181, 0.12);
-  --cr-accent-line: rgba(94, 230, 181, 0.28);
+  --cr-accent-dim: rgba(47, 155, 255, 0.12);
+  --cr-accent-line: rgba(47, 155, 255, 0.28);
 
   /* Map onto VitePress */
   --vp-c-bg: var(--cr-ground);
@@ -38,7 +38,7 @@
   --vp-c-text-3: var(--cr-text-3);
 
   --vp-c-brand-1: var(--cr-accent);
-  --vp-c-brand-2: #7ff0c7;
+  --vp-c-brand-2: #6cc0ff;
   --vp-c-brand-3: var(--cr-accent);
   --vp-c-brand-soft: var(--cr-accent-dim);
 
@@ -114,7 +114,7 @@ button:focus-visible {
   align-self: center;
   transition: background-color 0.2s ease;
 }
-.VPNavBarMenu .VPNavBarMenuLink:last-of-type:hover { background: #7ff0c7; }
+.VPNavBarMenu .VPNavBarMenuLink:last-of-type:hover { background: #6cc0ff; }
 .VPNavBarMenu { align-items: center; }
 
 .VPSidebar { background-color: var(--cr-surface) !important; }
@@ -194,7 +194,7 @@ button:focus-visible {
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 .btn-primary { background: var(--cr-accent); color: var(--cr-accent-ink); }
-.btn-primary:hover { background: #7ff0c7; text-decoration: none; }
+.btn-primary:hover { background: #6cc0ff; text-decoration: none; }
 .btn-ghost { border: 1px solid var(--cr-rule-strong); color: var(--cr-text-1); }
 .btn-ghost:hover { border-color: var(--cr-accent); color: var(--cr-accent); text-decoration: none; }
 
