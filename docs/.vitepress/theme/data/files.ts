@@ -567,6 +567,62 @@ https://clint-mathews.medium.com/why-your-distributed-lock-is-probably-broken-59
 https://github.com/Clint-Mathews/fencelock`,
   },
   {
+    filename: "WORKER_POOL.md",
+    dir: "writing",
+    year: "2026",
+    size: "7.8K",
+    oneLine: "A zero-allocation worker pool for 10kHz sensor ingestion in Go",
+    desc: "Fixed workers, bounded backpressure, and sync.Pool recycling for a 10kHz hot path.",
+    role: "Technical writing",
+    stack: ["Go", "gRPC", "sync.Pool"],
+    metrics: ["10,000 frames/sec", "Zero per-frame allocations", "Bounded backpressure"],
+    links: [
+      {
+        label: "DEV.to",
+        href: "https://dev.to/clintmathews/a-zero-allocation-worker-pool-for-10khz-sensor-ingestion-in-go-17ji",
+      },
+    ],
+    body: `// WORKER_POOL.md
+
+A build-log write-up for PhotonicOps: a fixed-size Go worker pool between the
+gRPC ingestion stream and the DSP handoff. The design keeps the receive loop
+light, uses a bounded queue for backpressure, and recycles scratch buffers with
+sync.Pool instead of allocating on every frame.
+
+10,000 frames/sec · 10 fixed workers · 50,000-slot queue · no silent drops
+
+https://dev.to/clintmathews/a-zero-allocation-worker-pool-for-10khz-sensor-ingestion-in-go-17ji`,
+  },
+  {
+    filename: "UNIX_SOCKET_GRPC.md",
+    dir: "writing",
+    year: "2026",
+    size: "10.2K",
+    oneLine: "gRPC over a Unix socket, not HTTP",
+    desc: "A real IPC tradeoff for an offline, HIPAA-postured edge system.",
+    role: "Technical writing",
+    stack: ["Go", "gRPC", "Python", "Unix sockets"],
+    metrics: ["10kHz telemetry", "Protobuf contract reuse", "Zero cloud APIs"],
+    links: [
+      {
+        label: "DEV.to",
+        href: "https://dev.to/clintmathews/grpc-over-a-unix-socket-not-http-a-real-ipc-tradeoff-from-a-hipaa-postured-edge-system-4foa",
+      },
+    ],
+    body: `// UNIX_SOCKET_GRPC.md
+
+An architecture decision from PhotonicOps: why the Go ingestion engine uses
+gRPC over a Unix domain socket for its local Python DSP hop instead of HTTP and
+JSON. The choice preserves the streaming shape and Protobuf contract while
+reducing serialization overhead and the local exposure surface.
+
+The tradeoff is explicit: this works because both processes are co-located on
+one air-gapped edge host. A multi-host deployment would need TCP-based gRPC
+with mTLS.
+
+https://dev.to/clintmathews/grpc-over-a-unix-socket-not-http-a-real-ipc-tradeoff-from-a-hipaa-postured-edge-system-4foa`,
+  },
+  {
     filename: "FILE2VIDEO.md",
     dir: "writing",
     year: "2021",

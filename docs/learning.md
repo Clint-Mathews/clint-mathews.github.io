@@ -20,6 +20,26 @@ A write-up of the pause → expire → fence argument: timeouts cannot guarantee
 
 <div class="learning-card">
 
+### A Zero-Allocation Worker Pool for 10kHz Sensor Ingestion in Go <span class="project-tag">Golang · Performance</span>
+
+Part of the PhotonicOps build log. This write-up covers a fixed-size worker pool, bounded backpressure, and `sync.Pool` buffer recycling for a sensor pipeline handling 10,000 frames per second without per-frame allocations.
+
+[Read the write-up →](https://dev.to/clintmathews/a-zero-allocation-worker-pool-for-10khz-sensor-ingestion-in-go-17ji)
+
+</div>
+
+<div class="learning-card">
+
+### gRPC over a Unix socket, not HTTP: a real IPC tradeoff from a HIPAA-postured edge system <span class="project-tag">Go · gRPC · Python</span>
+
+An architecture decision from PhotonicOps: why the local Go-to-Python DSP boundary uses gRPC over a Unix domain socket instead of HTTP and JSON, and where that decision stops applying.
+
+[Read the write-up →](https://dev.to/clintmathews/grpc-over-a-unix-socket-not-http-a-real-ipc-tradeoff-from-a-hipaa-postured-edge-system-4foa)
+
+</div>
+
+<div class="learning-card">
+
 ### File-To-BinaryVideo-BackTo-File <span class="project-tag">Golang</span>
 
 Engineered an encoding mechanism that converts any file into a binary video format, enabling lossless decoding back to the original source. An exploration of binary data representation, video encoding pipelines, and creative approaches to data storage.
