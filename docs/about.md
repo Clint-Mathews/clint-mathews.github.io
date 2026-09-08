@@ -51,6 +51,7 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
   <li>Mentored junior engineers through rigorous code reviews, improving code quality and reducing ramp-up time</li>
   <li>Owned L3 production support for critical services, maintaining 99.95% uptime and driving root cause analysis for incident resolution</li>
   <li>Authored 3 foundational RFCs to define technical strategy for OCPP 2.x adoption and core platform services</li>
+  <li>Led the charging engineering team, co-owning 16 production services across charging and its utilities while coordinating integrations with partner teams</li>
 </ul>
 </div>
 

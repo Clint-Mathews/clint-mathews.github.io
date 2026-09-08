@@ -310,10 +310,10 @@ Revamped Datadog logging/monitoring to filter logs and accelerate RCA.
     year: "2023",
     size: "5.6K",
     oneLine: "Ford Pro Charging — charger data backbone",
-    desc: "SME for charger data systems serving fleet managers.",
-    role: "Ford Pro · SME, backend owner",
+    desc: "Led the team and co-owned 16 production services across charging and its utilities.",
+    role: "Ford Pro · team lead, SME, backend owner",
     stack: ["NestJS", "TypeScript", "JavaScript", "MongoDB"],
-    metrics: ["8,200+ chargers supported", "SME for charger data"],
+    metrics: ["16 production services co-owned", "8,200+ chargers supported", "SME for charger data"],
     links: [
       { label: "NestJS", href: "https://nestjs.com/" },
       { label: "TypeScript", href: "https://www.typescriptlang.org/" },
@@ -325,11 +325,13 @@ The Ford Pro Charging SaaS platform needed a reliable backbone for charger data
 systems that fleet managers depend on.
 
 // BUILD
-SME for all charger data systems; owned NestJS / TypeScript backend services and
-MongoDB data systems for 8,200+ chargers.
+Led the charging engineering team, co-owning 16 production services across
+charging and its utilities while coordinating integrations with partner teams.
+Served as SME for charger data systems, including NestJS / TypeScript backend
+services and MongoDB data systems for 8,200+ chargers.
 
 // RESULTS
-8,200+ chargers supported · SME for charger data`,
+16 production services co-owned · 8,200+ chargers supported · SME for charger data`,
   },
   {
     filename: "JIRALYZER.ai",

@@ -89,7 +89,19 @@ aside.VPSidebar {
 }
 
 .sys-col-right {
-  text-align: right;
+  text-align: left;
+}
+
+.sys-col-right .sys-row {
+  display: grid;
+  grid-template-columns: 8ch max-content max-content;
+  column-gap: 1ch;
+  justify-content: start;
+  text-align: left;
+}
+
+.sys-sep {
+  text-align: left;
 }
 
 .sys-row em {

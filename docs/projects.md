@@ -291,12 +291,13 @@ The Ford Pro Charging SaaS platform needed a reliable backbone for all charger d
 
 **What I Built**
 
-Served as the Subject Matter Expert (SME) for all charger data systems, owning NestJS and TypeScript backend services with MongoDB that form the backbone of the Ford Pro Charging platform for 8,200+ chargers. [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/)
+Led the charging engineering team, co-owning 16 production services across charging and its utilities while coordinating integrations with partner teams. Served as the Subject Matter Expert (SME) for charger data systems, including NestJS and TypeScript backend services with MongoDB that form the backbone of the Ford Pro Charging platform for 8,200+ chargers. [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/)
 
 **Results**
 
 <div class="metrics-row">
   <span class="metric-badge">8,200+ chargers supported</span>
+  <span class="metric-badge">16 production services co-owned</span>
   <span class="metric-badge">SME for charger data</span>
 </div>
 
