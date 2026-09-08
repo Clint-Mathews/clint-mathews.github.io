@@ -10,6 +10,16 @@ Great systems are built through iteration, and the reasoning is worth publishing
 
 <div class="learning-card">
 
+### Why your distributed lock is probably broken <span class="project-tag">Golang · etcd</span>
+
+A write-up of the pause → expire → fence argument: timeouts cannot guarantee mutual exclusion, so the resource must reject stale fencing tokens. The working example is [Fencelock](/projects#fencelock), a Go library with etcd as the primary backend and Redis kept as a documented weaker counterexample.
+
+[Read the write-up →](https://clint-mathews.medium.com/why-your-distributed-lock-is-probably-broken-592987479e7b) · [View on GitHub →](https://github.com/Clint-Mathews/fencelock)
+
+</div>
+
+<div class="learning-card">
+
 ### File-To-BinaryVideo-BackTo-File <span class="project-tag">Golang</span>
 
 Engineered an encoding mechanism that converts any file into a binary video format, enabling lossless decoding back to the original source. An exploration of binary data representation, video encoding pipelines, and creative approaches to data storage.

@@ -10,7 +10,7 @@ confidential business logic.*
 
 ## Built from zero
 
-Systems that did not exist until I built them: architecture, implementation, and the decisions in between. The first two are solo projects; the rest were built inside Ford Pro.
+Systems that did not exist until I built them: architecture, implementation, and the decisions in between. PhotonicOps, EchoGate, and Fencelock are solo projects; the rest in this section were built inside Ford Pro.
 
 <div class="project-card" id="photonicops">
 
@@ -24,7 +24,7 @@ Clinical microfluidic biosensors stream optical telemetry (resonance wavelength 
 
 **What I Built**
 
-- **Ingestion engine (Go).** A gRPC server ingesting 10,000 samples/sec per sensor, built around a zero-allocation worker pool and a mutex-protected ring buffer, both pre-sized at startup and reused via `sync.Pool` to avoid GC churn on the hot path. Verified with `pprof` to show no significant GC pauses under sustained load from a mock 10 kHz sensor client I also wrote, holding sub-2 ms p99 latency.
+- **Ingestion engine (Go).** An mTLS gRPC server ingesting 10,000 samples/sec per sensor, built around a zero-allocation worker pool and a mutex-protected ring buffer, both pre-sized at startup and reused via `sync.Pool` to avoid GC churn on the hot path. Verified with `pprof` to show no significant GC pauses under sustained load from a mock 10 kHz sensor client I also wrote, holding sub-2 ms p99 latency.
 - **DSP pipeline (Python).** Telemetry crosses into Python over a Unix-domain-socket gRPC transport reusing the same Protobuf `FrameBatch` contract, where it is smoothed with a 1D steady-state Kalman filter, de-drifted with rolling-baseline subtraction, and scanned for anomalies via first-derivative thresholding, fully vectorized NumPy/SciPy with no per-sample Python loops, under 10 ms per frame.
 - **Agentic triage (Python + local LLM).** When an anomaly is flagged, a local Llama 3.1 model served by Ollama is prompted through Instructor to emit a strictly-typed Pydantic `RemediationDecision`, never raw text. A safety module is the only authorized caller, and a fail-safe state machine guarantees that low-confidence, schema-invalid, timed-out, or unreachable responses degrade to `REQUIRES_MANUAL_REVIEW` rather than executing anything against hardware, backed by a dedicated test asserting the no-auto-execute invariant.
 - **Observability & audit.** Every triage decision, whether auto-executed, manual-review, or manual-override, is traced through a self-hosted Langfuse instance and persisted to a durable audit log (Postgres + JSONL) alongside the triggering telemetry window, satisfying clinical traceability requirements.
@@ -32,13 +32,12 @@ Clinical microfluidic biosensors stream optical telemetry (resonance wavelength 
 
 **Notable Engineering Decisions (documented as ADRs)**
 
-- Deferred mTLS on the gRPC transport behind an explicit re-entry gate; plaintext is acceptable only on a single local host, never before touching shared network segments or real hardware.
-- Reused the Go↔Python Protobuf contract over Unix domain sockets for the DSP handoff rather than inventing a second wire format.
+- Required mTLS (TLS 1.3, local CA) on the sensor TCP listener; kept the Go→Python DSP hop plaintext over a Unix domain socket rather than inventing a second wire format or wrapping loopback IPC in TLS.
 - Made a hardware-safety call: the triage agent can *recommend* a remediation but is architecturally incapable of auto-executing on anything but a high-confidence, schema-valid, fully-authorized response.
 
 **Status**
 
-Ingestion, DSP, and agentic triage phases are complete and tested. In progress: a Promptfoo evaluation suite scoring remediation accuracy and fail-safe behavior across clean/noisy/ambiguous/adversarial scenarios, plus a hardening pass on the Go engine (mTLS, Prometheus `/metrics`, load-shedding, per-sensor ring-buffer sharding) before it would be appropriate for real clinical hardware.
+Ingestion, DSP, and agentic triage phases are complete and tested, including mTLS on the sensor path and Prometheus `/metrics`. In progress: a Promptfoo evaluation suite scoring remediation accuracy and fail-safe behavior across clean/noisy/ambiguous/adversarial scenarios, plus further Go hardening (load-shedding defaults, per-sensor ring-buffer sharding) before it would be appropriate for real clinical hardware.
 
 **AI-Assisted Engineering Practice**
 
@@ -53,6 +52,8 @@ Used Claude Code as a primary agentic dev tool: project-level constraint files e
   <span class="metric-badge">Zero-allocation hot path</span>
   <span class="metric-badge">Fully air-gapped</span>
 </div>
+
+[View on GitHub →](https://github.com/Clint-Mathews/PhotonicOps)
 
 </div>
 </div>
@@ -93,6 +94,41 @@ Shipped honestly, in phases. Complete: the local Ollama host and the Go proxy co
 </div>
 
 [View on GitHub →](https://github.com/Clint-Mathews/EchoGate)
+
+</div>
+</div>
+
+<div class="project-card" id="fencelock">
+
+### Fencelock: Fencing Tokens for Distributed Locks <span class="project-tag">Go · etcd · Redis</span>
+
+<div class="project-body">
+
+**The Problem**
+
+A distributed lock cannot guarantee mutual exclusion. A holder can pause (GC, VM stall, network partition) past its lease TTL, the lock expires, another client acquires it, and two clients both believe they hold the lock. Timeouts do not fix this. The lock service can only hand out a token; it cannot stop a stale client from writing.
+
+**My Approach**
+
+Treat the problem as ordered writes with staleness rejection, not as unenforceable mutual exclusion. Every acquire issues a monotonically increasing, **server-side** fencing token. The protected resource rejects any write whose token is lower than the highest it has already seen. etcd is the primary backend (linearizable; token = lock-key create revision). Redis is a secondary, best-effort backend kept on purpose as the Redlock counterexample: same `Locker` interface, weaker foundation.
+
+**What I Built**
+
+- **`lock.Locker` API.** `Acquire` / `TryAcquire` return a `Lease` carrying a fencing token. `Valid()` is client-side and advisory; a write is only safe if the resource checks the token.
+- **etcd and Redis backends.** etcd via sessions/mutexes with revision as the token. Redis via `SET NX PX`, Lua compare-and-delete release, and `INCR` for tokens, documented as best-effort rather than equivalent.
+- **`FencedResource`.** In-memory (race-safe) and Postgres (`UPDATE ... WHERE last_token < $1`) stores that reject stale writes without mutating state.
+- **Reproducible failure and fix.** `cmd/demo` plus integration tests against real etcd and Redis (testcontainers, not mocks): pause past TTL, second client acquires, first client's stale write is rejected. A companion test shows where Redis can still admit a hazard etcd does not.
+
+**Results**
+
+<div class="metrics-row">
+  <span class="metric-badge">Pause → expire → fence, tested</span>
+  <span class="metric-badge">etcd primary · Redis counterexample</span>
+  <span class="metric-badge">Memory + Postgres fenced stores</span>
+  <span class="metric-badge">`go test -race` vs real containers</span>
+</div>
+
+[View on GitHub →](https://github.com/Clint-Mathews/fencelock) · [Read the write-up →](https://clint-mathews.medium.com/why-your-distributed-lock-is-probably-broken-592987479e7b)
 
 </div>
 </div>

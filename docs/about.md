@@ -80,7 +80,7 @@ Golang · Python · TypeScript · JavaScript · C#
 <div class="skill-category">
 
 #### Backend & Cloud
-NestJS · .NET Core · Kafka · AWS · Docker · Flask
+NestJS · .NET Core · Kafka · AWS · Docker · Flask · etcd
 
 </div>
 
@@ -108,7 +108,7 @@ Datadog · Pandas · NumPy · Jupyter Notebooks · Bash · Git · CI/CD · Jira 
 <div class="skill-category">
 
 #### Architecture & Patterns
-Microservices · Event-driven architecture · Circuit breakers · Bulkhead isolation · Backpressure · Async job queues · RFC authorship · OCPP protocol
+Microservices · Event-driven architecture · Circuit breakers · Bulkhead isolation · Backpressure · Async job queues · RFC authorship · OCPP protocol · Fencing tokens · Distributed locking
 
 </div>
 

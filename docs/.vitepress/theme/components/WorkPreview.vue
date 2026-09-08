@@ -15,6 +15,13 @@ const work = [
     link: "/projects#photonicops",
   },
   {
+    title: "Fencelock",
+    tag: "Solo build · Go · etcd",
+    body: "A distributed lock library built around fencing tokens: every acquire issues a monotonic token, and the resource rejects stale writes after a pause-past-TTL. etcd is primary; Redis is the documented weaker counterexample.",
+    metrics: ["Fencing tokens", "Real etcd/Redis tests"],
+    link: "/projects#fencelock",
+  },
+  {
     title: "OCPP Gateway Migration",
     tag: "Ford Pro · platform migration",
     body: "Led the monolith-to-microservices transition for EV charging, migrating 8,200 chargers onto a new gateway without interrupting live OCPP sessions, and rebuilt observability along the way.",

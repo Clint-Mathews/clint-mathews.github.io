@@ -2,7 +2,7 @@
 const fits = [
   {
     title: "Ship the v1 backend",
-    body: "Built PhotonicOps and EchoGate solo (Go, Python, gRPC, local LLM inference) from empty repo to running system, architecture decisions included.",
+    body: "Built PhotonicOps, EchoGate, and Fencelock solo (Go, Python, gRPC, etcd, local LLM inference) from empty repo to running system, architecture decisions included.",
     link: "/projects#photonicops",
     linkText: "See the builds",
   },
