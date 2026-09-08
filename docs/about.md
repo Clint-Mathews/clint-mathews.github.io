@@ -129,7 +129,7 @@ gRPC (client-streaming) · Protobuf schema design · Zero-allocation / low-GC ho
 <div class="skill-category">
 
 #### AI-Assisted Dev Workflow
-Claude Code · Google Antigravity · GitHub Copilot for Enterprise · Cursor · OpenRouter · Ollama (self-hosted LLM) · Langfuse (LLM observability)
+Claude Code · Cursor · OpenCode · Codex · OpenRouter · GitHub Copilot for Enterprise · Google Antigravity · Ollama (self-hosted LLM) · Langfuse (LLM observability)
 
 </div>
 

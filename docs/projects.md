@@ -41,7 +41,7 @@ Ingestion, DSP, and agentic triage phases are complete and tested, including mTL
 
 **AI-Assisted Engineering Practice**
 
-Used Claude Code as a primary agentic dev tool: project-level constraint files enforce architectural rules (ARM64-only Docker configs, zero-allocation Go patterns, zero-cloud-API policy) automatically across every session, with directory-scoped AI personas per service and ADRs as durable machine-readable context for continuity.
+Used Claude Code, Cursor, OpenCode, and Codex as coding harnesses on the same repo: project-level constraint files enforce architectural rules (ARM64-only Docker configs, zero-allocation Go patterns, zero-cloud-API policy) automatically across sessions, with directory-scoped AI personas per service and ADRs as durable machine-readable context. OpenRouter routes models so the harness is not locked to one provider.
 
 **Results**
 

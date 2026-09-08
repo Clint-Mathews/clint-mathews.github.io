@@ -6,7 +6,7 @@ const method = [
   },
   {
     title: "AI-native workflow",
-    body: "Claude Code, Copilot Enterprise, and self-hosted Ollama, driven by committed constraint files and directory-scoped agent personas so architectural rules enforce themselves across sessions. Not autocomplete. Leverage.",
+    body: "Claude Code, Cursor, OpenCode, Codex, and OpenRouter — plus Copilot and self-hosted Ollama — driven by committed constraint files and directory-scoped agent personas so architectural rules enforce themselves across harnesses. Not autocomplete. Leverage.",
   },
   {
     title: "Translator between teams",

@@ -5,7 +5,6 @@ export default defineConfig({
   description:
     "Backend engineer for systems under load. 8,200 EV chargers, six million messages a day, 99.95% uptime. Open to full-time roles and select contract engagements.",
 
-  // Direction A is a single dark palette, no toggle, no light variant.
   appearance: "force-dark",
 
   //  base: "/my-portfolio/", // repo name; omit ONLY if repo is <username>.github.io
@@ -17,10 +16,17 @@ export default defineConfig({
       "link",
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700&display=swap",
       },
     ],
-    ["meta", { name: "theme-color", content: "#0e1417" }],
+    [
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://cdn.jsdelivr.net/npm/geist@1.4.1/dist/fonts/geist-mono/style.min.css",
+      },
+    ],
+    ["meta", { name: "theme-color", content: "#050a07" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "Clint Mathews, backend engineer" }],
     [
@@ -34,20 +40,8 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    nav: [
-      { text: "Work", link: "/projects" },
-      { text: "Deep Dives", link: "/architecture" },
-      { text: "Writing", link: "/learning" },
-      { text: "About", link: "/about" },
-      { text: "Hire me", link: "/#contact" },
-    ],
-    socialLinks: [
-      { icon: "github", link: "https://github.com/Clint-Mathews" },
-      { icon: "linkedin", link: "https://www.linkedin.com/in/clint-mathews/" },
-    ],
-    footer: {
-      message: "Open to full-time roles and select contract engagements.",
-      copyright: "Clint Mathews, built with VitePress",
-    },
+    nav: [],
+    socialLinks: [],
+    sidebar: false,
   },
 });
