@@ -16,11 +16,20 @@ export const ASCII_BANNER = [
   "  \\____|_____|___|_| \\_| |_|",
 ].join("\n");
 
+export const GOPHER_FRAMES = [
+  "/gopher/gopher-dance-1.png",
+  "/gopher/gopher-dance-2.png",
+  "/gopher/gopher-dance-3.png",
+  "/gopher/gopher-dance-4.png",
+];
+
 export const WHOAMI = [
-  `${site.name} — backend engineer, 7+ years.`,
+  `${site.name} — backend engineer, 7+ years. Gopher through and through.`,
+  "Passionate about Golang and building real solutions with it.",
   "Seven years building infrastructure, the last four at Ford Pro. I design",
   "the systems that stay up when traffic stops being theoretical, and I write the",
   "RFC before I write the code. Backend that holds when the load arrives.",
+  "I like reading. Favorite book: The Stranger by Albert Camus.",
 ].join("\n");
 
 export const STATUS_ROWS = [
@@ -33,6 +42,7 @@ export const STATUS_TXT = [
   "// STATUS.TXT",
   `LOCATION : India -- ${availability.cells[2].value}`,
   `FOCUS    : ${availability.cells[3].value} -- systems under load`,
+  `READING  : The Stranger -- Albert Camus`,
   `CONTACT  : ${site.email}`,
 ].join("\n");
 
@@ -42,6 +52,8 @@ export const ABOUT_MD = [
   "// ABOUT.MD",
   `${site.name}, backend engineer with 7+ years building high-performance`,
   "distributed systems that power enterprise-scale platforms.",
+  "Passionate about Golang and building solutions with it — a gopher",
+  "through and through.",
   "",
   "// WHAT I DO",
   "I architect and build the backend systems that organizations depend on. Work",
@@ -93,6 +105,9 @@ export const ABOUT_MD = [
   site.github,
   site.linkedin,
   site.resume,
+  "",
+  "// OFF DUTY",
+  "I like reading. Favorite book: The Stranger by Albert Camus.",
 ].join("\n");
 
 export const RESUME_TXT = [

@@ -1,7 +1,8 @@
 # About
 
 **Clint Mathews**, backend engineer with 7+ years building high-performance
-distributed systems that power enterprise-scale platforms.
+distributed systems that power enterprise-scale platforms. Passionate about
+Golang and building solutions with it — a gopher through and through.
 
 <div class="strip" style="margin: 28px 0 8px;">
   <div class="strip-cell">
@@ -160,6 +161,12 @@ Mar Athanasius College of Engineering · Kothamangalam, Kerala, India
 <li><strong>R&amp;R Award</strong>, Experion Technologies, Oct 2020</li>
 </ul>
 </div>
+
+---
+
+## Off duty
+
+I like reading. Favorite book: *The Stranger* by Albert Camus.
 
 ---
 

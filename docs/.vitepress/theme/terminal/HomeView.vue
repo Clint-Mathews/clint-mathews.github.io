@@ -4,6 +4,7 @@ import { HOME_TIP, STATUS_ROWS, WHOAMI } from "../data/identity";
 import { site } from "../site";
 </script>
 
+
 <template>
   <div class="pane home-pane">
     <AsciiBanner />
