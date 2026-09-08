@@ -30,8 +30,8 @@ export const availability = {
     },
     {
       label: "Core stack",
-      value: "Go · Python · Kafka",
-      note: "NestJS · Flask · AWS · Postgres",
+      value: "Go · Python · TypeScript",
+      note: "NestJS · FastAPI · React · GCP",
     },
   ],
 };

@@ -1,0 +1,253 @@
+<!--
+  House style for JD-tailored resumes: "Google Docs" identity — Material Design
+  tokens (near-black ink, Google grey, Google blue accent), Roboto/Google Sans
+  font stack, laid out as a paper sheet on a grey canvas.
+
+  This is a STRUCTURE REFERENCE, not a templating engine — when generating a
+  new resume, copy this file, replace the placeholder content in <main class="sheet">
+  with the tailored resume content (same section order: Summary, Skills,
+  Experience, Selected Projects, Education, Awards), and keep the CSS as-is
+  unless the JD calls for a genuinely different section (e.g. add
+  "Certifications"). Do not restyle from scratch each time — consistency
+  across resumes is the point.
+
+  No print/download button — PDF is produced by scripts/render-pdf.mjs via
+  headless Chromium, not by window.print() (window.print() does not work
+  reliably in sandboxed iframe contexts like published Artifacts).
+-->
+<title>{{FULL_NAME}} — Resume</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --page: #eef1f4;
+    --ink: #202124;
+    --muted: #5f6368;
+    --accent: #1a56db;
+    --accent-soft: #e8f0fe;
+    --rule: #dadce0;
+    --rule-soft: #e8eaed;
+    --shadow: 0 1px 2px rgba(32,33,36,.06), 0 4px 18px rgba(32,33,36,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #26282b;
+      --page: #17181a;
+      --ink: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #8ab4f8;
+      --accent-soft: #2c3a52;
+      --rule: #3c4043;
+      --rule-soft: #333537;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #26282b; --page: #17181a; --ink: #e8eaed; --muted: #9aa0a6;
+    --accent: #8ab4f8; --accent-soft: #2c3a52; --rule: #3c4043; --rule-soft: #333537;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff; --page: #eef1f4; --ink: #202124; --muted: #5f6368;
+    --accent: #1a56db; --accent-soft: #e8f0fe; --rule: #dadce0; --rule-soft: #e8eaed;
+    --shadow: 0 1px 2px rgba(32,33,36,.06), 0 4px 18px rgba(32,33,36,.08);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Google Sans", "Segoe UI", Roboto, Arial, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 760px;
+    margin: 2.5rem auto 4rem;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    padding: 3.4rem 3.6rem 3.8rem;
+  }
+
+  header.id {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 1.6rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: 2.05rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .contact {
+    text-align: right;
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .contact a { color: inherit; text-decoration: none; }
+  .contact a:hover { color: var(--accent); text-decoration: underline; }
+  .contact a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  section { margin-top: 1.7rem; }
+  h2 {
+    font-size: .74rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 .7rem;
+    padding-bottom: .35rem;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  p.summary {
+    margin: 0;
+    font-size: .92rem;
+    line-height: 1.65;
+    max-width: 65ch;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 11rem 1fr;
+    row-gap: .5rem;
+    column-gap: 1rem;
+    font-size: .87rem;
+    line-height: 1.55;
+  }
+  .skills-grid dt { font-weight: 600; color: var(--muted); }
+  .skills-grid dd { margin: 0; }
+
+  .entry { margin-bottom: 1.35rem; }
+  .entry:last-child { margin-bottom: 0; }
+  .entry-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .entry-title { font-size: .96rem; font-weight: 600; }
+  .entry-org { font-weight: 400; color: var(--muted); }
+  .entry-meta {
+    font-size: .78rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  ul.bullets {
+    margin: .45rem 0 0;
+    padding-left: 1.1rem;
+    font-size: .87rem;
+    line-height: 1.58;
+  }
+  ul.bullets li { margin-bottom: .38rem; }
+  ul.bullets li:last-child { margin-bottom: 0; }
+  ul.bullets li::marker { color: var(--accent); }
+
+  .project { margin-bottom: 1.1rem; font-size: .87rem; line-height: 1.6; }
+  .project:last-child { margin-bottom: 0; }
+  .project-title { font-weight: 600; }
+  .project-tag {
+    font-size: .68rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 4px;
+    padding: .1rem .4rem;
+    margin-left: .4rem;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    vertical-align: 1px;
+  }
+
+  .edu-row, .awards p { font-size: .87rem; line-height: 1.6; }
+  .edu-row { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .edu-org { color: var(--muted); }
+  .awards p { margin: 0; color: var(--ink); }
+  .awards .label { color: var(--muted); }
+
+  @media (max-width: 640px) {
+    .sheet { padding: 2rem 1.3rem 2.6rem; margin: 1rem auto 2rem; }
+    header.id { flex-direction: column; align-items: flex-start; }
+    .contact { text-align: left; }
+    .skills-grid { grid-template-columns: 1fr; row-gap: .2rem; }
+    .skills-grid dt { margin-top: .5rem; }
+  }
+
+  @media print {
+    body, .page { background: #fff; }
+    .sheet { box-shadow: none; margin: 0 auto; padding: 0; max-width: none; }
+  }
+</style>
+
+<main class="sheet">
+  <header class="id">
+    <h1>{{FULL_NAME}}</h1>
+    <div class="contact">
+      <div><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+      <div>{{PHONE}}</div>
+      <div><a href="{{LINKEDIN_URL}}">{{LINKEDIN_DISPLAY}}</a></div>
+      <div><a href="{{GITHUB_URL}}">{{GITHUB_DISPLAY}}</a></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">{{SUMMARY}}</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills-grid">
+      <!-- repeat per skill group -->
+      <dt>{{SKILL_GROUP_LABEL}}</dt>
+      <dd>{{SKILL_GROUP_VALUES}}</dd>
+    </dl>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <!-- repeat per role -->
+    <div class="entry">
+      <div class="entry-head">
+        <div class="entry-title">{{TITLE}} <span class="entry-org">· {{COMPANY}}</span></div>
+        <div class="entry-meta">{{LOCATION}} · {{DATE_RANGE}}</div>
+      </div>
+      <ul class="bullets">
+        <li>{{BULLET}}</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected Projects</h2>
+    <!-- repeat per project -->
+    <div class="project">
+      <span class="project-title">{{PROJECT_NAME}}</span><span class="project-tag">{{PROJECT_TAG}}</span>
+      <div>{{PROJECT_DESCRIPTION}}</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu-row">
+      <div><strong>{{DEGREE}}</strong> — <span class="edu-org">{{SCHOOL}}</span></div>
+      <div class="entry-meta">{{EDU_DETAIL}}</div>
+    </div>
+  </section>
+
+  <section class="awards">
+    <h2>Awards</h2>
+    <p>{{AWARDS_LINE}}</p>
+  </section>
+</main>

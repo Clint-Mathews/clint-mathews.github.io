@@ -81,7 +81,7 @@ Golang · Python · TypeScript · JavaScript · C#
 <div class="skill-category">
 
 #### Backend & Cloud
-NestJS · .NET Core · Kafka · AWS · Docker · Flask · etcd
+NestJS · FastAPI · .NET Core · Kafka · Redis · BullMQ · AWS · GCP · Docker · Flask · etcd
 
 </div>
 

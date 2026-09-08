@@ -232,11 +232,17 @@ https://github.com/Clint-Mathews`,
     year: "2024",
     size: "12K",
     oneLine: "High-throughput Kafka fleet consumer — 6M+ msgs/day",
-    desc: "Ingest and route charger telemetry with contract fidelity; later RFC for backpressure.",
+    desc: "NestJS/TypeScript telemetry consumer with Redis/BullMQ backpressure and contract fidelity.",
     role: "Ford Pro · architect + implement",
-    stack: ["Kafka", "Node.js", "OCPP"],
+    stack: ["NestJS", "TypeScript", "JavaScript", "Kafka", "Redis", "BullMQ", "Node.js", "OCPP"],
     metrics: ["6M+ messages/day", "99.9% data integrity", "Horizontal scalability"],
-    links: [{ label: "RFC case study", href: "#CHARGING_CONSUMER.rfc" }],
+    links: [
+      { label: "RFC case study", href: "#CHARGING_CONSUMER.rfc" },
+      { label: "NestJS", href: "https://nestjs.com/" },
+      { label: "TypeScript", href: "https://www.typescriptlang.org/" },
+      { label: "BullMQ", href: "https://bullmq.io/" },
+      { label: "Redis", href: "https://redis.io/" },
+    ],
     body: `// KAFKA.consumer — High-Throughput Kafka Fleet Consumer
 
 // PROBLEM
@@ -248,8 +254,10 @@ Fault tolerance and throughput first: partition strategy and consumer-group conf
 evaluated before code, so the system could scale with fleet size.
 
 // BUILD
-Architected and implemented a high-throughput Kafka consumer from the ground up:
-ingest, process, and route millions of messages daily against defined contracts.
+Architected and implemented a NestJS / TypeScript Kafka consumer from the ground
+up: ingest, process, and route millions of messages daily against defined
+contracts. The resilience implementation uses Redis-backed BullMQ queues to
+bound work and preserve partition-aware processing under downstream failure.
 
 // RESULTS
 6M+ messages/day · 99.9% data integrity · horizontal scalability
@@ -304,8 +312,12 @@ Revamped Datadog logging/monitoring to filter logs and accelerate RCA.
     oneLine: "Ford Pro Charging — charger data backbone",
     desc: "SME for charger data systems serving fleet managers.",
     role: "Ford Pro · SME, backend owner",
-    stack: ["NestJS", "MongoDB"],
+    stack: ["NestJS", "TypeScript", "JavaScript", "MongoDB"],
     metrics: ["8,200+ chargers supported", "SME for charger data"],
+    links: [
+      { label: "NestJS", href: "https://nestjs.com/" },
+      { label: "TypeScript", href: "https://www.typescriptlang.org/" },
+    ],
     body: `// FPC.platform — Ford Pro Charging
 
 // PROBLEM
@@ -313,8 +325,8 @@ The Ford Pro Charging SaaS platform needed a reliable backbone for charger data
 systems that fleet managers depend on.
 
 // BUILD
-SME for all charger data systems; owned backend services (NestJS, MongoDB)
-for 8,200+ chargers.
+SME for all charger data systems; owned NestJS / TypeScript backend services and
+MongoDB data systems for 8,200+ chargers.
 
 // RESULTS
 8,200+ chargers supported · SME for charger data`,
@@ -327,9 +339,10 @@ for 8,200+ chargers.
     oneLine: "AI analytics over 100k+ Jira issues",
     desc: "NL query + summary without timing out on large datasets. Hackathon finalist.",
     role: "Hackathon finalist · full-stack",
-    stack: ["React", "Flask", "GPT-4", "Azure AD"],
+    stack: ["React", "JavaScript", "Flask", "GPT-4", "Azure AD"],
     award: "Ford Pro Hackathon Finalist, Q4 2025",
     metrics: ["70% faster analysis", "100,000+ Jira issues", "Hackathon Finalist"],
+    links: [{ label: "React", href: "https://react.dev/" }],
     body: `// JIRALYZER.ai — AI Analytics Platform
 
 // PROBLEM

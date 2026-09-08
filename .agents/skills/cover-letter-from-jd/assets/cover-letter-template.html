@@ -1,0 +1,155 @@
+<!--
+  House style for JD-tailored cover letters: same "Google Docs" identity as
+  the resume template (Material Design tokens, Roboto/Google Sans, paper
+  sheet on grey canvas) so the pair reads as one consistent application
+  packet, just letter-shaped instead of resume-shaped.
+
+  This is a STRUCTURE REFERENCE, not a templating engine — copy this file,
+  replace the placeholder content in <main class="sheet">, and keep the CSS
+  as-is for visual consistency with the matching resume.
+
+  No print/download button — PDF is produced by scripts/render-pdf.mjs via
+  headless Chromium, not by window.print().
+-->
+<title>{{FULL_NAME}} — Cover Letter</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --page: #eef1f4;
+    --ink: #202124;
+    --muted: #5f6368;
+    --accent: #1a56db;
+    --accent-soft: #e8f0fe;
+    --rule: #dadce0;
+    --shadow: 0 1px 2px rgba(32,33,36,.06), 0 4px 18px rgba(32,33,36,.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #26282b; --page: #17181a; --ink: #e8eaed; --muted: #9aa0a6;
+      --accent: #8ab4f8; --accent-soft: #2c3a52; --rule: #3c4043;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #26282b; --page: #17181a; --ink: #e8eaed; --muted: #9aa0a6;
+    --accent: #8ab4f8; --accent-soft: #2c3a52; --rule: #3c4043;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"] {
+    --paper: #ffffff; --page: #eef1f4; --ink: #202124; --muted: #5f6368;
+    --accent: #1a56db; --accent-soft: #e8f0fe; --rule: #dadce0;
+    --shadow: 0 1px 2px rgba(32,33,36,.06), 0 4px 18px rgba(32,33,36,.08);
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "Google Sans", "Segoe UI", Roboto, Arial, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .sheet {
+    max-width: 700px;
+    margin: 2.5rem auto 4rem;
+    background: var(--paper);
+    box-shadow: var(--shadow);
+    border-radius: 2px;
+    padding: 3.4rem 3.6rem 3.8rem;
+  }
+
+  header.id {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 1.5rem;
+    padding-bottom: 1.1rem;
+    border-bottom: 3px solid var(--accent);
+    margin-bottom: 1.8rem;
+  }
+  h1 {
+    margin: 0;
+    font-size: 1.7rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+  .contact {
+    text-align: right;
+    font-size: .82rem;
+    color: var(--muted);
+    line-height: 1.7;
+    white-space: nowrap;
+  }
+  .contact a { color: inherit; text-decoration: none; }
+  .contact a:hover { color: var(--accent); text-decoration: underline; }
+
+  .meta-block {
+    font-size: .87rem;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 1.6rem;
+  }
+  .meta-block .date { margin-bottom: .9rem; }
+
+  .salutation {
+    font-size: .92rem;
+    margin-bottom: 1.1rem;
+  }
+
+  .body-copy p {
+    font-size: .92rem;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+  .body-copy p:last-child { margin-bottom: 0; }
+
+  .sign-off {
+    margin-top: 1.6rem;
+    font-size: .92rem;
+    line-height: 1.7;
+  }
+  .sign-off .name { margin-top: 1.6rem; font-weight: 600; }
+
+  @media (max-width: 640px) {
+    .sheet { padding: 2rem 1.3rem 2.6rem; margin: 1rem auto 2rem; }
+    header.id { flex-direction: column; align-items: flex-start; }
+    .contact { text-align: left; }
+  }
+
+  @media print {
+    body, .page { background: #fff; }
+    .sheet { box-shadow: none; margin: 0 auto; padding: 0; max-width: none; }
+  }
+</style>
+
+<main class="sheet">
+  <header class="id">
+    <h1>{{FULL_NAME}}</h1>
+    <div class="contact">
+      <div><a href="mailto:{{EMAIL}}">{{EMAIL}}</a></div>
+      <div>{{PHONE}}</div>
+      <div><a href="{{LINKEDIN_URL}}">{{LINKEDIN_DISPLAY}}</a></div>
+      <div><a href="{{GITHUB_URL}}">{{GITHUB_DISPLAY}}</a></div>
+    </div>
+  </header>
+
+  <div class="meta-block">
+    <div class="date">{{DATE}}</div>
+    <!-- Recipient block is optional — omit the div entirely if no company/hiring-manager name is known -->
+    <div>{{COMPANY_NAME}}</div>
+  </div>
+
+  <div class="salutation">{{SALUTATION}}</div>
+
+  <!-- repeat <p> per paragraph: hook/role-interest, top 2-3 JD requirements mapped to real experience,
+       one concrete project/metric proof point, close with call to action -->
+  <div class="body-copy">
+    <p>{{PARAGRAPH}}</p>
+  </div>
+
+  <div class="sign-off">
+    <div>{{CLOSING_LINE}}</div>
+    <div class="name">{{FULL_NAME}}</div>
+  </div>
+</main>

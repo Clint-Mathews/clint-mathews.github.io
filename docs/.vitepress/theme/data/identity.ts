@@ -81,8 +81,9 @@ export const ABOUT_MD = [
   "",
   "// SKILLS",
   "Languages     : Golang · Python · TypeScript · JavaScript · C#",
-  "Backend/Cloud : NestJS · .NET Core · Kafka · AWS · Docker · Flask · etcd",
+  "Backend/Cloud : NestJS · FastAPI · .NET Core · Kafka · Redis · BullMQ · AWS · GCP",
   "Data          : PostgreSQL · MongoDB · Redis · MySQL",
+  "Frontend      : React · JavaScript · TypeScript",
   "Architecture  : Microservices · event-driven · circuit breakers · backpressure",
   "                · fencing tokens · OCPP · RFC authorship",
   "Go systems    : gRPC · Protobuf · zero-allocation hot paths · pprof",
@@ -133,7 +134,7 @@ export const RESUME_TXT = [
   "GPA 7.88 / 10",
   "",
   "// SKILLS",
-  "Go · Python · Kafka · NestJS · AWS · Postgres · Redis · etcd · OCPP",
+   "Go · Python · TypeScript · JavaScript · NestJS · FastAPI · Kafka · Redis · BullMQ · GCP",
   "AI agents: Claude Code · Cursor · OpenCode · Codex · OpenRouter",
 ].join("\n");
 
@@ -167,10 +168,10 @@ export const RESUME_PAGE = {
     },
   ],
   skills: [
-    "Go · Python · TypeScript · NestJS · Kafka · AWS · Postgres · Redis · etcd · OCPP",
+    "Go · Python · TypeScript · JavaScript · NestJS · FastAPI · Kafka · Redis · BullMQ",
+    "React · Postgres · MongoDB · AWS · GCP · etcd · OCPP",
     "AI agents: Claude Code · Cursor · OpenCode · Codex · OpenRouter",
   ],
   pdf: site.resume,
   email: site.email,
 };
-

@@ -219,7 +219,7 @@ Platforms that were already live and already struggling. This is also where the 
 
 <div class="project-card">
 
-### High-Throughput Kafka Fleet Consumer <span class="project-tag">Ford Pro</span>
+### High-Throughput Kafka Fleet Consumer <span class="project-tag">NestJS · TypeScript · Redis · BullMQ</span>
 
 <div class="project-body">
 
@@ -233,7 +233,7 @@ I focused on fault tolerance and throughput. Before writing code, I evaluated th
 
 **What I Built**
 
-I architected and implemented a high-throughput Kafka consumer from the ground up. I built the service to reliably ingest, process, and route millions of messages daily, ensuring strict adherence to defined data contracts.
+I architected and implemented a high-throughput Kafka consumer from the ground up using NestJS and TypeScript. The service reliably ingests, processes, and routes millions of messages daily with strict data-contract adherence. Its resilience design uses Redis-backed BullMQ queues to apply backpressure and preserve partition-aware processing during downstream failures.
 
 **Results**
 
@@ -243,7 +243,7 @@ I architected and implemented a high-throughput Kafka consumer from the ground u
   <span class="metric-badge">Horizontal scalability</span>
 </div>
 
-As the fleet grew, this consumer's fire-and-forget dispatch became its own failure mode. I authored the RFC redesigning it around backpressure and circuit breaking, and implemented that architecture in full. [read the case study →](/portfolio-resilient-charging-consumer)
+As the fleet grew, this consumer's fire-and-forget dispatch became its own failure mode. I authored the RFC redesigning it around Redis/BullMQ backpressure and circuit breaking, and implemented that architecture in full. [Read the case study →](/portfolio-resilient-charging-consumer) · [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/) · [BullMQ](https://bullmq.io/) · [Redis](https://redis.io/)
 
 </div>
 </div>
@@ -281,7 +281,7 @@ I architected and deployed a central communication gateway, successfully migrati
 
 <div class="project-card">
 
-### Ford Pro Charging (FPC) Platform <span class="project-tag">Ford Pro</span>
+### Ford Pro Charging (FPC) Platform <span class="project-tag">NestJS · TypeScript · MongoDB</span>
 
 <div class="project-body">
 
@@ -291,7 +291,7 @@ The Ford Pro Charging SaaS platform needed a reliable backbone for all charger d
 
 **What I Built**
 
-Served as the Subject Matter Expert (SME) for all charger data systems, owning the backend services (NestJS, MongoDB) that form the backbone of the Ford Pro Charging platform for 8,200+ chargers.
+Served as the Subject Matter Expert (SME) for all charger data systems, owning NestJS and TypeScript backend services with MongoDB that form the backbone of the Ford Pro Charging platform for 8,200+ chargers. [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/)
 
 **Results**
 
@@ -311,7 +311,7 @@ Making large, messy datasets answer a question a human actually asked.
 
 <div class="project-card">
 
-### Jiralyzer: AI Analytics Platform <span class="project-tag tag--highlight">Hackathon Finalist</span>
+### Jiralyzer: AI Analytics Platform <span class="project-tag tag--highlight">React · Hackathon Finalist</span>
 
 <div class="project-body">
 
@@ -321,7 +321,7 @@ Analyzing massive volumes of Jira tickets for performance metrics was slow and m
 
 **What I Built**
 
-I built a full-stack AI analytics platform (React, Flask, GPT-4) with enterprise-grade features including Azure AD authentication, automated PDF reporting, and a real-time AI chat for interactive performance analysis. Implemented intelligent caching and parallel processing for LLM workloads, cutting analysis response times by 70%.
+I built a full-stack AI analytics platform ([React](https://react.dev/), Flask, GPT-4) with enterprise-grade features including Azure AD authentication, automated PDF reporting, and a real-time AI chat for interactive performance analysis. Implemented intelligent caching and parallel processing for LLM workloads, cutting analysis response times by 70%.
 
 **Results**
 
