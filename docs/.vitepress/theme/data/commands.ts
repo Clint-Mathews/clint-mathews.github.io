@@ -40,6 +40,7 @@ const FILE_ALIASES: Record<string, string[]> = {
   "REDIS_PUBSUB.msg": ["redis"],
   "FILE2VIDEO.bin": ["f2v"],
   "AI_FIRST.md": ["opencode", "codex", "openrouter", "cursor", "claude"],
+  "CHAOSBOX.lab": ["chaosbox", "load_test"],
 };
 
 export const CLI_COMMANDS: CliRow[] = [

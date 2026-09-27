@@ -141,6 +141,54 @@ https://github.com/Clint-Mathews/fencelock
 https://clint-mathews.medium.com/why-your-distributed-lock-is-probably-broken-592987479e7b`,
   },
   {
+    filename: "CHAOSBOX.lab",
+    dir: "projects",
+    year: "2026",
+    size: "6.1K",
+    oneLine: "Kubernetes lab for testing scale and failure",
+    desc: "A production-shaped lab that finds the next measurable bottleneck before introducing new architecture.",
+    role: "Personal project · architecture + implementation + write-up",
+    stack: ["Go", "PostgreSQL", "Kubernetes", "Docker", "Load testing"],
+    metrics: ["100-user Phase 1 target", "Evidence-first testing", "Phased scaling lab"],
+    links: [
+      { label: "GitHub", href: "https://github.com/Clint-Mathews/ChaosBox" },
+      {
+        label: "Write-up",
+        href: "https://clint-mathews.medium.com/validate-the-load-test-before-scaling-d52b9cb4dcf7",
+      },
+      {
+        label: "Medium series",
+        href: "https://clint-mathews.medium.com/list/building-chaosbox-3cac6198eb35",
+      },
+    ],
+    body: `// CHAOSBOX.lab — Production-Conditions Scaling Lab
+
+// GOAL
+Build a deliberately simple system, expose it to production-shaped traffic and
+failure conditions, identify the next measurable constraint, and introduce new
+architecture only when the evidence justifies it.
+
+// BUILD
+- Go REST API and PostgreSQL store with transactional multi-product orders.
+- Docker Compose for local development and Minikube manifests with intentionally
+  constrained CPU, memory, and persistent storage.
+- Unit, race, Testcontainers end-to-end, Bruno, and CI coverage.
+- Load testing that ramps to 100 concurrent users while checking correctness,
+  failure rate, latency, pod restarts, and OOM kills.
+
+// STATUS
+Phase 1 testing in progress. The initial workload establishes a failure baseline
+before the project adds scaling, reliability, networking, or data patterns.
+
+// WRITE-UP
+Part 1 explains why workload shape, traffic path, and retained evidence must be
+validated before a benchmark is treated as capacity evidence.
+
+https://github.com/Clint-Mathews/ChaosBox
+https://clint-mathews.medium.com/validate-the-load-test-before-scaling-d52b9cb4dcf7
+https://clint-mathews.medium.com/list/building-chaosbox-3cac6198eb35`,
+  },
+  {
     filename: "GOS.sim",
     dir: "projects",
     year: "2024",
