@@ -78,7 +78,10 @@ function setHash(h: string) {
 }
 
 function focusPrompt() {
-  nextTick(() => promptRef.value?.focus());
+  // Keep the software keyboard closed while visitors browse on touch devices.
+  if (window.matchMedia("(pointer: fine)").matches) {
+    nextTick(() => promptRef.value?.focus());
+  }
 }
 
 function showHome() {
@@ -263,7 +266,14 @@ function cycleFocus(dir: 1 | -1) {
 }
 
 function onKey(e: KeyboardEvent) {
-  const tag = (e.target as HTMLElement | null)?.tagName;
+  const target = e.target as HTMLElement | null;
+  if (e.key === "Escape") {
+    promptRef.value?.focus();
+    return;
+  }
+  // Native links, search fields, video controls, and demos keep their keyboard behavior.
+  if (!target?.closest(".prompt-line, .module-bar")) return;
+  const tag = target.tagName;
   if (e.key === "ArrowUp") {
     e.preventDefault();
     cycleFocus(-1);
@@ -273,8 +283,6 @@ function onKey(e: KeyboardEvent) {
   } else if (e.key === "Enter" && tag !== "INPUT" && tag !== "BUTTON") {
     e.preventDefault();
     selectModule(focused.value);
-  } else if (e.key === "Escape") {
-    promptRef.value?.focus();
   }
 }
 
@@ -358,19 +366,19 @@ onUnmounted(() => {
 <template>
   <div class="os-root">
     <StatusHeader />
-    <div ref="outputEl" class="os-scroll">
+    <main ref="outputEl" class="os-scroll" aria-label="Portfolio content" tabindex="-1">
       <BootSequence v-if="view === 'boot'" :instant="reduced" @done="onBootDone" />
       <HomeView v-else-if="view === 'home'" />
       <FileListing
         v-else-if="view === 'work'"
         :files="lsDir(listDir)"
         :dir="listDir"
-        @open="showFile"
       />
       <AboutView v-else-if="view === 'about'" />
       <ResumeView v-else-if="view === 'resume'" />
       <CaseStudy
         v-else-if="view === 'file' && openFile"
+        :key="openFile.filename"
         :file="openFile"
         @back="showWork(listDir)"
         @list="showWork(listDir)"
@@ -381,7 +389,7 @@ onUnmounted(() => {
         <pre class="pane-body">{{ noticeText }}</pre>
       </div>
       <pre v-else-if="view === 'error'" class="out-err">{{ errorText }}</pre>
-    </div>
+    </main>
     <footer v-if="view !== 'boot'" class="os-foot">
       <PromptLine ref="promptRef" v-model="draft" @submit="submit" />
       <ModuleBar :active="active" :focused="focused" @select="selectModule" />

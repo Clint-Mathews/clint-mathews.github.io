@@ -22,6 +22,14 @@ export interface FileEntry {
   award?: string;
   platform?: string;
   status?: string;
+  media?: {
+    kind: "image" | "video";
+    src: string;
+    alt: string;
+    caption: string;
+    poster?: string;
+    captions?: string;
+  }[];
 }
 
 export interface ModuleDef {

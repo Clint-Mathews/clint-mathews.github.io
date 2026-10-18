@@ -16,7 +16,9 @@ function onKey(e: KeyboardEvent) {
   if (e.key === "Enter") emit("submit", props.modelValue);
 }
 
-onMounted(() => input.value?.focus());
+onMounted(() => {
+  if (window.matchMedia("(pointer: fine)").matches) input.value?.focus();
+});
 
 watch(
   () => props.disabled,

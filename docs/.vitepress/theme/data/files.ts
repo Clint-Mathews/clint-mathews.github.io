@@ -3,6 +3,7 @@ import type { FileEntry } from "./types";
 export const files: FileEntry[] = [
   {
     filename: "PHOTONICOPS.eng",
+    status: "CORE BUILT · HARDENING",
     dir: "projects",
     year: "2026",
     size: "24K",
@@ -56,6 +57,7 @@ https://github.com/Clint-Mathews/PhotonicOps`,
   },
   {
     filename: "ECHOGATE.gw",
+    status: "IN PROGRESS",
     dir: "projects",
     year: "2026",
     size: "16K",
@@ -96,6 +98,7 @@ https://github.com/Clint-Mathews/EchoGate`,
   },
   {
     filename: "FENCELOCK.lock",
+    status: "IMPLEMENTED + TESTED",
     dir: "projects",
     year: "2026",
     size: "14K",
@@ -142,6 +145,7 @@ https://clint-mathews.medium.com/why-your-distributed-lock-is-probably-broken-59
   },
   {
     filename: "CHAOSBOX.lab",
+    status: "PHASE 1 · IN PROGRESS",
     dir: "projects",
     year: "2026",
     size: "6.1K",
@@ -471,6 +475,13 @@ shipments and optimize warehouse scheduling with live dock availability data.`,
   },
   {
     filename: "CHARGING_CONSUMER.rfc",
+    status: "IMPLEMENTED · NOT ADOPTED",
+    media: [{
+      kind: "image",
+      src: "/fleet-charging-consumer-architecture.svg",
+      alt: "Kafka partitions feed Redis-backed queues and regional workers protected by twenty circuit breakers.",
+      caption: "Four defense layers: bounded intake, durable offload, partition backpressure, and regional circuit breaking. Open the diagram for full resolution.",
+    }],
     dir: "dives",
     year: "2026",
     size: "32K",
@@ -539,6 +550,11 @@ tradeoff is exactly what a real load test vindicates or embarrasses.
   },
   {
     filename: "REPORTING_PIPELINE.rfc",
+    status: "ADOPTED + SHIPPED",
+    media: [
+      { kind: "image", src: "/Synchronous-Bottleneck.png", alt: "Original synchronous reporting pipeline with downstream calls inside a blocking request.", caption: "Before — one long-running request couples the client to every downstream dependency." },
+      { kind: "image", src: "/Asynchronous-Decoupling.png", alt: "Asynchronous reporting architecture using a job queue and separate workers.", caption: "After — acknowledge the job, process asynchronously, and track progress independently." },
+    ],
     dir: "dives",
     year: "2024",
     size: "18K",

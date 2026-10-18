@@ -10,6 +10,7 @@ export default defineConfig({
   //  base: "/my-portfolio/", // repo name; omit ONLY if repo is <username>.github.io
 
   head: [
+    ["link", { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     ["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
     ["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
     [
