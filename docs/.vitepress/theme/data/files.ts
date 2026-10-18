@@ -56,6 +56,68 @@ further Go hardening (load-shedding, per-sensor ring sharding).
 https://github.com/Clint-Mathews/PhotonicOps`,
   },
   {
+    filename: "PHRASEROOTS.app",
+    status: "PERSONAL APP · SIGN-IN REQUIRED",
+    dir: "projects",
+    year: "2026",
+    size: "2.4K",
+    oneLine: "Turn Thai conversations into translations and reusable phrases",
+    desc: "React recording UI and FastAPI backend: faster-whisper transcription, OpenRouter translation, and a Google Drive recording library.",
+    role: "Personal project · frontend + backend",
+    platform: "Web · React / FastAPI",
+    stack: ["React", "TypeScript", "Python", "FastAPI", "faster-whisper", "OpenRouter", "WebSocket", "Google Drive", "Cloud Run", "Vercel"],
+    metrics: [
+      "Thai audio → English + romanization",
+      "Live conversation over WebSocket",
+      "Recurring phrase extraction",
+      "Google Drive recording library",
+    ],
+    links: [
+      { label: "Open app (sign-in required)", href: "https://phrase-roots.vercel.app" },
+      { label: "GitHub", href: "https://github.com/Clint-Mathews/PhraseRoots" },
+    ],
+    body: `// PHRASEROOTS.app — Thai Conversation Learning Companion
+
+// PROBLEM
+A Thai conversation is useful learning material, but audio alone is difficult
+to revisit. The workflow needs to connect what was said with its translation,
+romanization, and recurring phrases worth practicing.
+
+// APPROACH
+Bring recording, transcription, and translation into one browser-based workflow.
+The React UI talks to an authenticated FastAPI backend. Audio is transcribed
+with faster-whisper on the backend; the transcript goes to OpenRouter for
+translation using Qwen3 30B. Typed text can bypass the transcription step.
+
+// BUILD
+- Browser audio recording, local downloads, and uploaded-audio translation.
+- Thai-to-English translation with romanization for reviewing pronunciation.
+- WebSocket conversation endpoint processes audio chunks and returns timestamped
+  transcript, translation, and romanization segments.
+- Recurring phrase extraction from transcripts.
+- Save, browse, and translate recordings in a private Google Drive folder.
+- JWT-protected API; translation provider credentials stay on the backend.
+
+// DECISIONS
+- Google Drive is the permanent recording library, rather than a separate
+  recording database. Temporary backend audio files are deleted after processing.
+- Speech recognition runs on the backend; translation uses a hosted model through
+  OpenRouter. This is not an offline translation pipeline.
+- The CPU Whisper model is downloaded on the first audio request of a new backend
+  instance, so audio processing has a cold-start tradeoff.
+- Separate frontend and backend deployments: Vercel for the React UI and
+  Cloud Run deployment configuration for FastAPI, FFmpeg, and faster-whisper.
+
+// STATUS
+Personal application with a hosted frontend and sign-in-protected workflows.
+The repository includes Cloud Run and Vercel deployment workflows. Intended for
+a trusted personal backend, rather than a public multi-user service.
+
+// LINKS
+https://phrase-roots.vercel.app
+https://github.com/Clint-Mathews/PhraseRoots`,
+  },
+  {
     filename: "ECHOGATE.gw",
     status: "IN PROGRESS",
     dir: "projects",
@@ -358,14 +420,15 @@ Revamped Datadog logging/monitoring to filter logs and accelerate RCA.
   },
   {
     filename: "FPC.platform",
+    status: "ONGOING · TECHNICAL LEADERSHIP",
     dir: "projects",
-    year: "2023",
+    year: "2022–present",
     size: "5.6K",
-    oneLine: "Ford Pro Charging — charger data backbone",
-    desc: "Led the team and co-owned 16 production services across charging and its utilities.",
-    role: "Ford Pro · team lead, SME, backend owner",
+    oneLine: "Ford Pro Charging — technical leadership across 20 services",
+    desc: "Lead four team members, translate product needs into technical delivery, and own service operations and continuous improvements.",
+    role: "Ford Pro · technical lead, service owner, charger data SME",
     stack: ["NestJS", "TypeScript", "JavaScript", "MongoDB"],
-    metrics: ["16 production services co-owned", "8,200+ chargers supported", "SME for charger data"],
+    metrics: ["20 services owned", "4 team members led", "8,200+ chargers supported", "Product-to-engineering delivery"],
     links: [
       { label: "NestJS", href: "https://nestjs.com/" },
       { label: "TypeScript", href: "https://www.typescriptlang.org/" },
@@ -376,14 +439,30 @@ Revamped Datadog logging/monitoring to filter logs and accelerate RCA.
 The Ford Pro Charging SaaS platform needed a reliable backbone for charger data
 systems that fleet managers depend on.
 
-// BUILD
-Led the charging engineering team, co-owning 16 production services across
-charging and its utilities while coordinating integrations with partner teams.
-Served as SME for charger data systems, including NestJS / TypeScript backend
-services and MongoDB data systems for 8,200+ chargers.
+// CURRENT ROLE
+Member of Technical Staff 2–3 at Ford from August 2022 to mid-2025.
+Technical Lead since mid-2025.
+I lead four team members and own 20 services across charging and its utilities,
+covering feature delivery, service operations, and continuous improvements.
+
+// PRODUCT TO ENGINEERING
+Gather requirements and context from Product, CX, hardware/firmware, and partner
+teams. Translate product needs into scoped technical requirements and delivery
+plans, explain engineering constraints and tradeoffs, and guide implementation.
+
+// SERVICE OWNERSHIP
+Manage the services beyond feature release: coordinate integrations, support
+production operations, and drive ongoing reliability and maintainability work.
+Serve as SME for charger data systems, including NestJS / TypeScript backend
+services and MongoDB data systems supporting 8,200+ chargers.
+
+// AI AT WORK
+I use AI tools in engineering workflows and have contributed to a new AI chatbot
+feature. A separate project write-up is in progress; architecture and
+implementation details will follow in a dedicated case study.
 
 // RESULTS
-16 production services co-owned · 8,200+ chargers supported · SME for charger data`,
+20 services owned · 4 team members led · 8,200+ chargers supported`,
   },
   {
     filename: "JIRALYZER.ai",

@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
   title: "Clint Mathews",
   description:
-    "Backend engineer for systems under load. 8,200 EV chargers, six million messages a day, 99.95% uptime. Open to full-time roles and select contract engagements.",
+    "Technical lead and backend engineer. Leading four team members, owning 20 services, and translating product needs into reliable systems. Open to full-time roles and select contract engagements.",
 
   appearance: "force-dark",
 
@@ -29,13 +29,13 @@ export default defineConfig({
     ],
     ["meta", { name: "theme-color", content: "#050a07" }],
     ["meta", { property: "og:type", content: "website" }],
-    ["meta", { property: "og:title", content: "Clint Mathews, backend engineer" }],
+    ["meta", { property: "og:title", content: "Clint Mathews, technical lead & backend engineer" }],
     [
       "meta",
       {
         property: "og:description",
         content:
-          "Backend that holds when the load arrives. Open to full-time roles and select contract engagements.",
+          "Technical leadership across 20 services and four team members. Connecting product requirements, feature delivery, and continuous improvement.",
       },
     ],
   ],

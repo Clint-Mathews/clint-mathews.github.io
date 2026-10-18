@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { site, availability } from "../site";
+import { PROFILE_INTRO } from "../data/identity";
 </script>
 
 <template>
@@ -14,9 +15,7 @@ import { site, availability } from "../site";
       </h1>
 
       <p class="hero-sub">
-        Seven years building infrastructure, the last four at Ford Pro. I design
-        the systems that stay up when traffic stops being theoretical, and I
-        write the RFC before I write the code.
+        {{ PROFILE_INTRO }}
       </p>
 
       <div class="hero-actions">

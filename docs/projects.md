@@ -289,15 +289,22 @@ I architected and deployed a central communication gateway, successfully migrati
 
 The Ford Pro Charging SaaS platform needed a reliable backbone for all charger data systems, the services that fleet managers depend on for visibility into their EV charging infrastructure.
 
-**What I Built**
+**Leadership & Service Ownership**
 
-Led the charging engineering team, co-owning 16 production services across charging and its utilities while coordinating integrations with partner teams. Served as the Subject Matter Expert (SME) for charger data systems, including NestJS and TypeScript backend services with MongoDB that form the backbone of the Ford Pro Charging platform for 8,200+ chargers. [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/)
+Member of Technical Staff 2–3 at Ford from August 2022 to mid-2025, then Technical Lead from mid-2025 to present. In my current role, I lead four team members and own 20 services across charging and its utilities. I gather requirements from Product, CX, hardware/firmware, and partner teams, translate product needs into scoped technical plans, and guide feature delivery. Ongoing ownership includes managing service operations, coordinating integrations, and driving continuous improvements.
+
+I serve as the Subject Matter Expert (SME) for charger data systems, including NestJS and TypeScript backend services with MongoDB that support 8,200+ chargers. [NestJS](https://nestjs.com/) · [TypeScript](https://www.typescriptlang.org/)
+
+**AI at Work**
+
+I use AI tools in engineering workflows and have contributed to a new AI chatbot feature. A separate project write-up is in progress; architecture and implementation details will follow in a dedicated case study.
 
 **Results**
 
 <div class="metrics-row">
   <span class="metric-badge">8,200+ chargers supported</span>
-  <span class="metric-badge">16 production services co-owned</span>
+  <span class="metric-badge">20 services owned</span>
+  <span class="metric-badge">4 team members led</span>
   <span class="metric-badge">SME for charger data</span>
 </div>
 

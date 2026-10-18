@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AsciiBanner from "./AsciiBanner.vue";
-import { HOME_TIP, STATUS_ROWS } from "../data/identity";
+import { HOME_TIP, PROFILE_INTRO, STATUS_ROWS } from "../data/identity";
 import { site } from "../site";
 import { featuredFiles } from "../data/showcase";
 import ProjectCard from "./ProjectCard.vue";
@@ -12,7 +12,7 @@ import ProjectCard from "./ProjectCard.vue";
     <AsciiBanner />
     <p class="cmd-line"><span class="cmd-ps">$</span> whoami</p>
     <h1 class="home-headline">Backend that holds<br />when the load arrives<span>.</span></h1>
-    <p class="home-intro">{{ site.name }} — backend engineer, 7+ years. I build distributed systems and Go services, from EV charging infrastructure at Ford Pro to local AI pipelines. I write the RFC, ship the system, and work through the failure modes.</p>
+    <p class="home-intro">{{ PROFILE_INTRO }}</p>
     <div class="home-actions">
       <a class="primary-link" href="#work">Explore the work <span aria-hidden="true">↗</span></a>
       <a :href="site.resume" target="_blank" rel="noopener">Download résumé ↓</a>

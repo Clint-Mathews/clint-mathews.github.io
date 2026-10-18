@@ -1,6 +1,6 @@
 # About
 
-**Clint Mathews**, backend engineer with 7+ years building high-performance
+**Clint Mathews**, technical lead and backend engineer with 7+ years building high-performance
 distributed systems that power enterprise-scale platforms. Passionate about
 Golang and building solutions with it — a gopher through and through.
 
@@ -31,19 +31,23 @@ Golang and building solutions with it — a gopher through and through.
 
 ## What I Do
 
-I architect and build the backend systems that organizations depend on. My work spans the full lifecycle of distributed platforms: authoring foundational RFCs, designing microservice architectures, implementing high-throughput data pipelines, and optimizing observability at scale.
+I have been a Technical Lead since mid-2025, after working as Member of Technical Staff 2–3 at Ford from August 2022 to mid-2025. At Ford Pro, I lead four team members and own 20 services across charging and its utilities, combining feature delivery with service management, reliability, and continuous improvement.
 
-I also collaborate closely with hardware/firmware teams, CX, and Product to translate complex requirements into reliable technical solutions, and mentor junior engineers through rigorous code reviews.
+I gather context from Product, CX, hardware/firmware, and partner teams, clarify requirements, and translate product needs into scoped technical work. I explain engineering constraints and tradeoffs to help Product make informed decisions, then guide the team through implementation and ongoing ownership. Architecture, RFCs, code reviews, and production support remain part of the job.
 
 ---
 
 ## Experience
 
 <div class="experience-card">
-<h3>Technical Lead (Senior Software Engineer)</h3>
-<p><strong>Ford Motor Company</strong> · Remote, India</p>
-<span class="experience-date">Aug 2022 - Present</span>
+<h3>Ford Motor Company</h3>
+<p>Remote, India</p>
+<span class="experience-date">Company tenure: Aug 2022 - Present</span>
+<p><strong>Current:</strong> Technical Lead — mid-2025 – Present<br />
+<strong>Previous:</strong> Member of Technical Staff 2–3 — Aug 2022 – mid-2025</p>
 <ul>
+  <li>Current leadership scope: lead four team members and own 20 services across charging and its utilities</li>
+  <li>Manage service operations and drive continuous improvements alongside feature delivery</li>
   <li>Orchestrated end-to-end delivery of scalable backend services for the monolith-to-microservices transition, coordinating design, development, and deployment</li>
   <li>Served as the lead technical translator between Product and engineering (converting feature requests into scoped technical requirements) and between engineering and the hardware team, jointly planning and implementing integration work end-to-end</li>
   <li>Collaborated with hardware and firmware teams to resolve complex cloud-to-charger integration issues, ensuring seamless OCPP compliance for new charger models</li>
@@ -51,7 +55,7 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
   <li>Mentored junior engineers through rigorous code reviews, improving code quality and reducing ramp-up time</li>
   <li>Owned L3 production support for critical services, maintaining 99.95% uptime and driving root cause analysis for incident resolution</li>
   <li>Authored 3 foundational RFCs to define technical strategy for OCPP 2.x adoption and core platform services</li>
-  <li>Led the charging engineering team, co-owning 16 production services across charging and its utilities while coordinating integrations with partner teams</li>
+  <li>Use AI tools in engineering workflows; contributed to a new AI chatbot feature</li>
 </ul>
 </div>
 
@@ -65,6 +69,12 @@ I also collaborate closely with hardware/firmware teams, CX, and Product to tran
 <li>Contributed to a SaaS-based inventory tracking product, integrating with Sage ERP and increasing customer satisfaction by 25%</li>
 </ul>
 </div>
+
+---
+
+## AI at Work
+
+Alongside AI-assisted engineering workflows, I have contributed to a new AI chatbot feature at work. A separate project write-up is in progress; architecture and implementation details will be added in a future case study.
 
 ---
 

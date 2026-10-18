@@ -22,6 +22,14 @@ export const showcases: Record<string, Showcase> = {
     approach: "A bounded Go ingestion path feeds Python signal processing and schema-validated, local LLM triage.",
     outcome: "Ingestion, DSP, and triage implemented and tested. Sub-2ms ingestion p99 against a mock 10 kHz client; evaluations and further hardening in progress.",
   },
+  "PHRASEROOTS.app": {
+    accent: "amber", label: "CONVERSATION TO LEARNING", signal: "listen → learn",
+    nodes: ["Thai audio", "Whisper", "Translation"],
+    principle: "Keep the conversation. Revisit the phrases.",
+    problem: "Spoken Thai is hard to revisit without a transcript, translation, and a way to find useful recurring phrases.",
+    approach: "Combine browser recording and a FastAPI backend with faster-whisper transcription, OpenRouter translation, romanization, and a Google Drive recording library.",
+    outcome: "Personal app with a hosted frontend and sign-in-protected workflows. The implementation includes text and audio translation, WebSocket conversation processing, and recurring phrase extraction.",
+  },
   "ECHOGATE.gw": {
     accent: "blue", label: "SPLIT-PLANE INFERENCE", signal: "stream →",
     nodes: ["Client", "Go proxy", "Ollama"],
@@ -62,6 +70,14 @@ export const showcases: Record<string, Showcase> = {
     approach: "Move report generation into Celery workers, track job state in MongoDB, and recover partial successes independently.",
     outcome: "Adopted and shipped. The blocking request becomes a job acknowledgement; 99.9% reliability remains the stated target.",
   },
+  "FPC.platform": {
+    accent: "blue", label: "TECHNICAL LEADERSHIP", signal: "20 services",
+    nodes: ["Product needs", "Team delivery", "Service ownership"],
+    principle: "Turn requirements into delivery. Keep improving what ships.",
+    problem: "A charging platform needs new features to meet product needs while its existing services remain reliable and maintainable.",
+    approach: "Lead four team members, gather cross-team requirements, translate product needs into technical plans, and own operations and continuous improvements across 20 services.",
+    outcome: "Ongoing technical leadership at Ford Pro, with service ownership across charging and its utilities. Work also includes AI-assisted engineering and a new AI chatbot contribution; a detailed case study will follow.",
+  },
   "OCPP.gw": {
     accent: "blue", label: "PRODUCTION MIGRATION", signal: "8,200",
     nodes: ["EV chargers", "OCPP gateway", "Microservices"],
@@ -76,11 +92,11 @@ const featuredNames = ["PHOTONICOPS.eng", "FENCELOCK.lock", "ECHOGATE.gw", "CHAR
 export const featuredFiles = featuredNames.map((name) => files.find((file) => file.filename === name)!);
 
 export const workGroups = [
-  { id: "builds", label: "Independent builds", description: "Go systems, local AI, and experiments in correctness." },
+  { id: "builds", label: "Independent builds", description: "Go systems, AI applications, and experiments in correctness." },
   { id: "production", label: "Production systems", description: "Fleet infrastructure and enterprise platforms." },
 ] as const;
 
 export function projectGroup(file: FileEntry) {
-  return /^(PHOTONICOPS|ECHOGATE|FENCELOCK|CHAOSBOX|FILE2VIDEO|REDIS_PUBSUB)\./.test(file.filename)
+  return /^(PHOTONICOPS|PHRASEROOTS|ECHOGATE|FENCELOCK|CHAOSBOX|FILE2VIDEO|REDIS_PUBSUB)\./.test(file.filename)
     ? "builds" : "production";
 }

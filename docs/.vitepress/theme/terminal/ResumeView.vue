@@ -14,6 +14,7 @@ import { RESUME_PAGE } from "../data/identity";
       <div v-for="job in RESUME_PAGE.experience" :key="job.title" class="resume-block">
         <p class="resume-title">{{ job.title }}</p>
         <p class="resume-dates">{{ job.dates }}</p>
+        <p v-if="job.progression" class="pane-body">{{ job.progression }}</p>
         <ul>
           <li v-for="b in job.bullets" :key="b">{{ b }}</li>
         </ul>
